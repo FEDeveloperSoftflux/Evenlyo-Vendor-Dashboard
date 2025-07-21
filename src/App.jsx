@@ -3,6 +3,7 @@ import Dashboard from './pages/Dashboard';
 import ListManagement from './pages/ListManagement';
 import BookingAnalytics from './pages/BookingAnalytics';
 import Tracking from './pages/Tracking';
+import RoleManagement from './pages/RoleManagement';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('Dashboard');
@@ -21,6 +22,8 @@ function App() {
         return <BookingAnalytics onNavigate={handleNavigation} />;
       case 'Tracking':
         return <Tracking onNavigate={handleNavigation} />;
+      case 'Role Management':
+        return <RoleManagement onNavigate={handleNavigation} />;
       default:
         return <Dashboard onNavigate={handleNavigation} />;
     }

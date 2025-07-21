@@ -33,36 +33,34 @@ const TrackingTable = ({ data }) => {
   };
 
   return (
-    <div className="w-full overflow-x-auto">
-      <div className="min-w-full">
-        <table className="min-w-full divide-y divide-gray-200 shadow-sm rounded-lg bg-white border border-gray-200">
+    <div className="w-full">
+      {/* Desktop/Tablet Table View */}
+      <div className="hidden md:block">
+        <table className="w-full divide-y divide-gray-200 shadow-sm rounded-lg bg-white border border-gray-200">
           <thead className="bg-pink-50 border-b border-pink-100">
             <tr>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
+              <th className="px-2 sm:px-4 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
                 Tracking ID
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
+              <th className="px-2 sm:px-4 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
                 Date & Time
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
+              <th className="px-2 sm:px-4 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
                 Buyer Details
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
-                Seller Details
+              <th className="px-2 sm:px-4 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
+                Items
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
-                Item List
+              <th className="px-2 sm:px-4 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
+                Delivery
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
-                Delivery Date
+              <th className="px-2 sm:px-4 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
+                Location
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
-                Destination Location
-              </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
+              <th className="px-2 sm:px-4 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-4 lg:px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider whitespace-nowrap">
+              <th className="px-2 sm:px-4 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
@@ -84,7 +82,7 @@ const TrackingTable = ({ data }) => {
       </div>
       
       {/* Mobile responsive cards */}
-      <div className="lg:hidden space-y-4">
+      <div className="md:hidden space-y-4">
         {data.map((order, index) => (
           <div key={`${order.id}-${index}`} className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
             <div className="flex justify-between items-start mb-3">
@@ -97,9 +95,6 @@ const TrackingTable = ({ data }) => {
             <div className="space-y-2 text-sm">
               <div>
                 <span className="font-medium text-gray-700">Buyer:</span> {order.buyer.name}
-              </div>
-              <div>
-                <span className="font-medium text-gray-700">Seller:</span> {order.seller.name}
               </div>
               <div>
                 <span className="font-medium text-gray-700">Items:</span> {order.items.join(', ')}
