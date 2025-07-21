@@ -7,6 +7,7 @@ import SearchInput from '../components/ui/SearchInput';
 import Button from '../components/ui/Button';
 import CreateRoleModal from '../components/role/CreateRoleModal';
 import CreateDesignationModal from '../components/role/CreateDesignationModal';
+import jaydeepImage from '../assets/images/jaydeep.png';
 
 const RoleManagement = ({ onNavigate }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,7 +27,7 @@ const RoleManagement = ({ onNavigate }) => {
       name: 'Super Admin',
       role: 'Full Access',
       dateTime: '12/15/2024 10:30 AM',
-      avatar: '/src/assets/images/jaydeep.png',
+      avatar: jaydeepImage,
       permissions: ['User Management: View Edit', 'Content Management: View Edit', 'Analytics: View Edit', 'Settings: View Edit', 'Role Management: View Edit'],
       status: 'Active'
     },
@@ -35,7 +36,7 @@ const RoleManagement = ({ onNavigate }) => {
       name: 'Admin',
       role: 'Limited Access',
       dateTime: '12/10/2024 2:15 PM',
-      avatar: '/src/assets/images/jaydeep.png',
+      avatar: jaydeepImage,
       permissions: ['User Management: View Edit', 'Content Management: View Edit', 'Analytics: View', 'Settings: View'],
       status: 'Active'
     },
@@ -44,7 +45,7 @@ const RoleManagement = ({ onNavigate }) => {
       name: 'Operations Manager',
       role: 'Operational Access',
       dateTime: '12/8/2024 9:45 AM',
-      avatar: '/src/assets/images/jaydeep.png',
+      avatar: jaydeepImage,
       permissions: ['User Management: View', 'Content Management: View Edit', 'Analytics: View', 'Operations: View Edit'],
       status: 'Active'
     },
@@ -53,7 +54,7 @@ const RoleManagement = ({ onNavigate }) => {
       name: 'Content Manager',
       role: 'Content Access',
       dateTime: '12/5/2024 1:20 PM',
-      avatar: '/src/assets/images/jaydeep.png',
+      avatar: jaydeepImage,
       permissions: ['Content Management: View Edit', 'Analytics: View', 'Media: View Edit'],
       status: 'Active'
     }
@@ -68,7 +69,7 @@ const RoleManagement = ({ onNavigate }) => {
       email: 'john.doe@example.com',
       phone: '+1234567890',
       dateTime: '1/5/2024 3:00 AM',
-      avatar: '/src/assets/images/jaydeep.png',
+      avatar: jaydeepImage,
       status: 'Active'
     },
     {
@@ -78,7 +79,7 @@ const RoleManagement = ({ onNavigate }) => {
       email: 'jane.smith@example.com',
       phone: '+0987654321',
       dateTime: '1/6/2024 10:00 AM',
-      avatar: '/src/assets/images/jaydeep.png',
+      avatar: jaydeepImage,
       status: 'De-Active'
     },
     {
@@ -88,7 +89,7 @@ const RoleManagement = ({ onNavigate }) => {
       email: 'alice.brown@example.com',
       phone: '+1122334455',
       dateTime: '1/7/2024 9:30 AM',
-      avatar: '/src/assets/images/jaydeep.png',
+      avatar: jaydeepImage,
       status: 'Active'
     },
     {
@@ -98,7 +99,7 @@ const RoleManagement = ({ onNavigate }) => {
       email: 'bob.white@example.com',
       phone: '+1098765432',
       dateTime: '1/8/2024 2:15 PM',
-      avatar: '/src/assets/images/jaydeep.png',
+      avatar: jaydeepImage,
       status: 'Active'
     }
   ]);
