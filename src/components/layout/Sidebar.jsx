@@ -16,18 +16,18 @@ import {
 } from 'lucide-react';
 import brandLogo from '../../assets/icons/brand.svg';
 
-const Sidebar = ({ activeItem = 'Dashboard', isOpen = false, onClose }) => {
+const Sidebar = ({ activeItem = 'Dashboard', isOpen = false, onClose, onNavigate }) => {
   const navigation = [
     { name: 'Dashboard', icon: Home, active: activeItem === 'Dashboard' },
-    { name: 'Listing Management', icon: List, active: false },
-    { name: 'Booking Analytics', icon: BarChart3, active: false },
-    { name: 'Tracking', icon: MapPin, active: false },
-    { name: 'Role Management', icon: Users, active: false },
-    { name: 'Stock Management', icon: Package, active: false },
-    { name: 'Analytics & Report', icon: FileText, active: false },
-    { name: 'Billing', icon: CreditCard, active: false },
-    { name: 'Inbox / Chat', icon: Inbox, active: false },
-    { name: 'Notifications', icon: Bell, active: false },
+    { name: 'Listing Management', icon: List, active: activeItem === 'Listing Management' },
+    { name: 'Booking Analytics', icon: BarChart3, active: activeItem === 'Booking Analytics' },
+    { name: 'Tracking', icon: MapPin, active: activeItem === 'Tracking' },
+    { name: 'Role Management', icon: Users, active: activeItem === 'Role Management' },
+    { name: 'Stock Management', icon: Package, active: activeItem === 'Stock Management' },
+    { name: 'Analytics & Report', icon: FileText, active: activeItem === 'Analytics & Report' },
+    { name: 'Billing', icon: CreditCard, active: activeItem === 'Billing' },
+    { name: 'Inbox / Chat', icon: Inbox, active: activeItem === 'Inbox / Chat' },
+    { name: 'Notifications', icon: Bell, active: activeItem === 'Notifications' },
   ];
 
   const bottomNavigation = [
@@ -36,13 +36,25 @@ const Sidebar = ({ activeItem = 'Dashboard', isOpen = false, onClose }) => {
   ];
 
   const NavItem = ({ item }) => (
-    <div className={`flex items-center space-x-3 px-4 py-3 rounded-2xl mx-4 mb-1 transition-all duration-200 cursor-pointer ${
-      item.active 
-        ? 'bg-gradient-primary text-white shadow-lg' 
-        : 'text-gray-600 hover:bg-gray-50'
-    }`}>
-      <item.icon className={`w-5 h-5 ${item.active ? 'text-white' : 'text-gray-500'}`} />
-      <span className="text-sm font-medium">{item.name}</span>
+    <div 
+      className={`relative flex items-center space-x-3 px-4 py-3 rounded-2xl mx-4 mb-1 transition-all duration-200 cursor-pointer ${
+        item.active 
+          ? 'bg-primary-from/5 text-primary-mid' 
+          : 'text-gray-600 hover:bg-gray-50'
+      }`}
+      onClick={() => onNavigate && onNavigate(item.name)}
+    >
+      {/* Left border for active item */}
+      {item.active && (
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary-mid rounded-r-full"></div>
+      )}
+      
+      {/* Content */}
+      <item.icon 
+        className={`w-5 h-5 ${item.active ? 'text-primary-mid' : 'text-gray-500'}`} 
+        fill={item.active ? 'currentColor' : 'none'}
+      />
+      <span className={`text-sm ${item.active ? 'font-semibold' : 'font-medium'}`}>{item.name}</span>
     </div>
   );
 
@@ -64,7 +76,7 @@ const Sidebar = ({ activeItem = 'Dashboard', isOpen = false, onClose }) => {
         <div className="px-6 py-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img src={brandLogo} alt="Evenlyo" className="h-7" style={{filter: 'hue-rotate(320deg) saturate(1.5) brightness(1.1)'}} />
+              <img src={brandLogo} alt="Evenlyo" className="h-7" />
             </div>
             {/* Close button for mobile */}
             <button 

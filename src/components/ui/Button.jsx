@@ -4,7 +4,7 @@ const Button = ({ children, variant = 'primary', size = 'md', className = '', ..
   const baseClasses = 'inline-flex items-center justify-center font-medium rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2';
   
   const variants = {
-    primary: 'bg-gradient-primary text-white hover:shadow-lg focus:ring-primary-mid',
+    primary: 'bg-gradient-to-r from-pink-600 to-pink-700 text-white hover:from-pink-700 hover:to-pink-800 hover:shadow-lg focus:ring-pink-500 shadow-md',
     secondary: 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-gray-300',
     ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-300',
   };

@@ -19,13 +19,13 @@ const OrdersChart = () => {
   const periods = ['1 Month', '3 Months', '6 Months', '1 Year'];
 
   return (
-    <Card className="p-6">
-      <div className="flex items-center justify-between mb-6">
+    <Card className="p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
         <h3 className="text-lg font-semibold text-gray-900">Orders Overview</h3>
         <div className="relative">
           <button 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-500 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex items-center space-x-2 px-3 py-2 text-sm text-gray-500 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors w-full sm:w-auto justify-between sm:justify-center"
           >
             <span>{selectedPeriod}</span>
             <ChevronDown className="w-4 h-4" />
@@ -49,9 +49,9 @@ const OrdersChart = () => {
         </div>
       </div>
 
-      <div className="h-64">
+      <div className="h-48 sm:h-64">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
+          <LineChart data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
             <XAxis 
               dataKey="day" 
               axisLine={false}
@@ -63,6 +63,7 @@ const OrdersChart = () => {
               tickLine={false}
               tick={{ fontSize: 12, fill: '#9CA3AF' }}
               domain={[0, 32]}
+              width={30}
             />
             <Line 
               type="monotone" 
@@ -84,8 +85,8 @@ const OrdersChart = () => {
       </div>
 
       <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
-        <span>32</span>
-        <span>Thu: 32</span>
+        <span className="font-medium">Peak: 32</span>
+        <span className="text-xs sm:text-sm">Thu: 32 orders</span>
       </div>
     </Card>
   );

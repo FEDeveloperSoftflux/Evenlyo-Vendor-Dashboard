@@ -86,3 +86,4 @@ coverage/
 # Temporary folders
 tmp/
 temp/
+node_modules

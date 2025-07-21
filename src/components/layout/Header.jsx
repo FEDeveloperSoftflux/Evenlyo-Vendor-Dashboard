@@ -3,7 +3,7 @@ import { Settings, LogOut, ChevronDown, Menu } from 'lucide-react';
 import notificationIcon from '../../assets/icons/notification.svg';
 import userPhoto from '../../assets/images/jaydeep.png';
 
-const Header = ({ userName = 'John Doe', userRole = 'Vendor', onMenuToggle }) => {
+const Header = ({ userName = 'John Doe', userRole = 'Vendor', currentModule = 'Dashboard', onMenuToggle }) => {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   const toggleUserDropdown = () => {
@@ -27,7 +27,7 @@ const Header = ({ userName = 'John Doe', userRole = 'Vendor', onMenuToggle }) =>
               >
                 <Menu className="w-5 h-5" />
               </button>
-              <h1 className="text-xl font-semibold text-gray-900">Dashboard</h1>
+              <h1 className="text-xl font-semibold text-gray-900">{currentModule}</h1>
             </div>
 
             {/* Right side - Notifications and User dropdown */}
@@ -61,11 +61,11 @@ const Header = ({ userName = 'John Doe', userRole = 'Vendor', onMenuToggle }) =>
                       <p className="text-xs text-gray-500">john@evenlyo.com</p>
                     </div>
                     <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-2">
-                      <Settings className="w-4 h-4" />
+                      <Settings className="w-4 h-4 text-primary-mid" />
                       <span>Setting</span>
                     </button>
                     <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-2">
-                      <LogOut className="w-4 h-4" />
+                      <LogOut className="w-4 h-4 text-primary-mid" />
                       <span>Logout</span>
                     </button>
                   </div>
@@ -75,14 +75,6 @@ const Header = ({ userName = 'John Doe', userRole = 'Vendor', onMenuToggle }) =>
           </div>
         </div>
       </header>
-
-      {/* Welcome section */}
-      <div className="bg-background px-4 lg:px-8 pb-4 lg:pb-6">
-        <h2 className="text-2xl lg:text-3xl font-bold text-gray-900">Welcome, {userName}</h2>
-        <p className="text-gray-400 mt-1 text-sm lg:text-base">
-          Role: {userRole} • Here's an overview of your business performance
-        </p>
-      </div>
     </>
   );
 };

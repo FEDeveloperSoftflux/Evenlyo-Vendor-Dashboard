@@ -48,30 +48,31 @@ const ActivityLog = () => {
   ];
 
   return (
-    <Card className="p-6">
+    <Card className="p-4 sm:p-6">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-gray-900">Activity Log</h3>
         <button className="text-sm text-pink-600 hover:text-pink-700 font-medium flex items-center">
-          View All <ChevronRight className="w-4 h-4 ml-1" />
+          <span className="hidden sm:inline">View All</span>
+          <ChevronRight className="w-4 h-4 ml-1" />
         </button>
       </div>
 
       <div className="space-y-0">
         {logs.map((log, index) => (
-          <div key={log.id} className={`flex items-center justify-between p-4 hover:bg-gray-50 rounded-2xl transition-colors ${index < logs.length - 1 ? 'border-b border-gray-100' : ''}`}>
-            <div className="flex items-center space-x-4">
-              <div className={`w-10 h-10 ${log.iconBg} rounded-full flex items-center justify-center`}>
+          <div key={log.id} className={`flex flex-col sm:flex-row sm:items-center justify-between p-4 hover:bg-gray-50 rounded-2xl transition-colors gap-3 ${index < logs.length - 1 ? 'border-b border-gray-100' : ''}`}>
+            <div className="flex items-start sm:items-center space-x-3 sm:space-x-4 flex-1 min-w-0">
+              <div className={`w-10 h-10 ${log.iconBg} rounded-full flex items-center justify-center flex-shrink-0`}>
                 <log.icon className={`w-5 h-5 ${log.iconColor}`} />
               </div>
-              <div className="flex-1">
-                <div className="flex items-center space-x-2">
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                   <h4 className="font-medium text-gray-900">{log.title}</h4>
                   <Badge status={log.tag} />
                 </div>
-                <p className="text-sm text-gray-500 mt-1">{log.description}</p>
+                <p className="text-sm text-gray-500 mt-1 line-clamp-2">{log.description}</p>
               </div>
             </div>
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-gray-500 self-end sm:self-center whitespace-nowrap">
               {log.timestamp}
             </div>
           </div>
