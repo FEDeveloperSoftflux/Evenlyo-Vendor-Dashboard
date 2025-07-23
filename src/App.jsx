@@ -4,6 +4,9 @@ import ListManagement from './pages/ListManagement';
 import BookingAnalytics from './pages/BookingAnalytics';
 import Tracking from './pages/Tracking';
 import RoleManagement from './pages/RoleManagement';
+import StockManagement from './pages/StockManagement';
+import AnalyticsReport from './pages/AnalyticsReport';
+import { SidebarProvider } from './contexts/SidebarContext';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('Dashboard');
@@ -24,12 +27,20 @@ function App() {
         return <Tracking onNavigate={handleNavigation} />;
       case 'Role Management':
         return <RoleManagement onNavigate={handleNavigation} />;
+      case 'Stock Management':
+        return <StockManagement onNavigate={handleNavigation} />;
+      case 'Analytics & Report':
+        return <AnalyticsReport onNavigate={handleNavigation} />;
       default:
         return <Dashboard onNavigate={handleNavigation} />;
     }
   };
 
-  return renderPage();
+  return (
+    <SidebarProvider>
+      {renderPage()}
+    </SidebarProvider>
+  );
 }
 
 export default App;

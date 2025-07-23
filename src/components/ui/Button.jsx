@@ -7,6 +7,7 @@ const Button = ({ children, variant = 'primary', size = 'md', className = '', ..
     primary: 'bg-gradient-to-r from-pink-600 to-pink-700 text-white hover:from-pink-700 hover:to-pink-800 hover:shadow-lg focus:ring-pink-500 shadow-md',
     secondary: 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 focus:ring-gray-300',
     ghost: 'text-gray-600 hover:bg-gray-100 focus:ring-gray-300',
+    gradient: 'bg-gradient-to-b from-[#FF295D] to-[#C817AE] text-white hover:opacity-90 focus:ring-pink-500 shadow-md',
   };
   
   const sizes = {

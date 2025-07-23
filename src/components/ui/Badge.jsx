@@ -5,7 +5,7 @@ const Badge = ({ status, children, className = '' }) => {
   const badgeClasses = getBadgeStyle(status);
   
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeClasses} ${className}`}>
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${badgeClasses} ${className}`}>
       {children || status}
     </span>
   );

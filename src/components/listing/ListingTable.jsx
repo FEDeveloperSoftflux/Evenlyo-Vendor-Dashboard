@@ -6,12 +6,13 @@ import ListingStatusToggle from './ListingStatusToggle';
 import ListingActions from './ListingActions';
 import listImage from '../../assets/images/list-dj-img.png';
 
-const ListingTable = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [eventTypeFilter, setEventTypeFilter] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
-  const [dateFilter, setDateFilter] = useState('');
+const ListingTable = ({ 
+  searchTerm = '',
+  categoryFilter = '',
+  eventTypeFilter = '',
+  statusFilter = '',
+  dateFilter = ''
+}) => {
 
   const [listings, setListings] = useState([
     {
@@ -105,78 +106,11 @@ const ListingTable = () => {
 
   return (
     <Card className="p-0 overflow-hidden">
-      {/* Filter Controls */}
-      <div className="p-6 border-b border-gray-100 bg-gray-50/30">
-        <div className="flex flex-col lg:flex-row gap-4">
-          {/* Search Input */}
-          <div className="relative flex-1 max-w-md">
-            <Search 
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" 
-              aria-hidden="true"
-            />
-            <input
-              type="text"
-              placeholder="Search listings..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-mid focus:border-transparent transition-colors"
-              aria-label="Search listings"
-            />
-          </div>
-          
-          {/* Filter Dropdowns */}
-          <div className="flex flex-wrap gap-3 lg:gap-4">
-            <select 
-              className="px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-mid focus:outline-none bg-white text-sm hover:border-gray-400 transition-colors"
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-            >
-              <option value="">All Categories</option>
-              <option value="Entertainment & Attractions">Entertainment & Attractions</option>
-              <option value="Music & Audio">Music & Audio</option>
-              <option value="Decoration & Styling">Decoration & Styling</option>
-              <option value="Photography & Video">Photography & Video</option>
-            </select>
-            
-            <select 
-              className="px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-mid focus:outline-none bg-white text-sm hover:border-gray-400 transition-colors"
-              value={eventTypeFilter}
-              onChange={(e) => setEventTypeFilter(e.target.value)}
-            >
-              <option value="">Filter by Event Type</option>
-              <option value="DJ">DJ Services</option>
-              <option value="Sound Equipment">Sound Equipment</option>
-              <option value="Lighting">Lighting</option>
-              <option value="Wedding Photography">Photography</option>
-            </select>
-            
-            <select 
-              className="px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-mid focus:outline-none bg-white text-sm hover:border-gray-400 transition-colors"
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-            >
-              <option value="">All Status</option>
-              <option value="live">Live</option>
-              <option value="block">Blocked</option>
-            </select>
-            
-            <div className="flex items-center gap-2">
-              <input
-                type="date"
-                value={dateFilter}
-                onChange={(e) => setDateFilter(e.target.value)}
-                className="px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-mid focus:outline-none bg-white text-sm hover:border-gray-400 transition-colors"
-              />
-              <Calendar className="w-4 h-4 text-gray-400" aria-hidden="true" />
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Desktop Table */}
       <div className="hidden lg:block overflow-x-auto">
         <table className="w-full">
-          <thead className="bg-gradient-to-r from-primary-from/5 to-primary-to/5">
+          <thead className="bg-pink-100">
             <tr>
               <th className="text-left py-4 px-6 text-sm font-semibold text-gray-900">Image</th>
               <th className="text-left py-4 px-6 text-sm font-semibold text-gray-900">Title & Description</th>

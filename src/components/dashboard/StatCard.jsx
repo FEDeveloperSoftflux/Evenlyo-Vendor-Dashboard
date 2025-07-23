@@ -16,12 +16,12 @@ const StatCard = ({ title, value, change, iconType, valueColor, dotColor, highli
   };
 
   return (
-    <Card gradient={highlighted} className="p-4 md:p-6 relative overflow-hidden">
+    <Card gradient={highlighted} className="p-3 sm:p-4 md:p-6 relative overflow-hidden">
       <div className="relative z-10">
         {/* Show icon for dashboard stats only */}
         {showIcon && iconType && (
-          <div className="absolute right-3 top-3 w-12 h-12 border border-gray-200 rounded-xl flex items-center justify-center">
-            <img src={iconMap[iconType]} alt={iconType} className="w-8 h-8 opacity-90" />
+          <div className="absolute right-2 sm:right-3 top-2 sm:top-3 w-8 sm:w-10 h-8 sm:h-10 border border-gray-200 rounded-lg sm:rounded-xl flex items-center justify-center">
+            <img src={iconMap[iconType]} alt={iconType} className="w-4 sm:w-5 h-4 sm:h-5 opacity-90" />
           </div>
         )}
         
@@ -32,15 +32,15 @@ const StatCard = ({ title, value, change, iconType, valueColor, dotColor, highli
           </div>
         )}
         
-        <p className={`text-sm font-medium mb-3 ${highlighted ? 'text-white/90' : 'text-gray-700'}`}>
+        <p className={`text-xs sm:text-sm font-medium mb-2 sm:mb-3 pr-10 sm:pr-12 ${highlighted ? 'text-white/90' : 'text-gray-700'}`}>
           {title}
         </p>
-        <p className={`text-3xl md:text-4xl font-bold mb-2 ${
+        <p className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2 pr-10 sm:pr-12 ${
           valueColor || (highlighted ? 'text-white' : 'text-gray-900')
         }`}>
           {value}
         </p>
-        <p className={`text-xs md:text-sm ${highlighted ? 'text-white/80' : 'text-gray-500'}`}>
+        <p className={`text-xs sm:text-sm pr-10 sm:pr-12 ${highlighted ? 'text-white/80' : 'text-gray-500'}`}>
           {change}
         </p>
       </div>

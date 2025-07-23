@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronDown, Calendar } from "lucide-react";
+import { ChevronDown, Calendar, Filter, Eye } from "lucide-react";
 import StatCards from "../components/dashboard/StatCards";
 import BookingCalendar from "../components/booking/NewBookingCalendar";
 import BookingDetailDrawer from "../components/booking/BookingDetailDrawer";
@@ -36,7 +36,7 @@ const BookingAnalytics = ({ onNavigate }) => {
       valueColor: "text-blue-500",
       dotColor: "bg-blue-500",
       highlighted: false,
-      showIcon: false
+      showIcon: false,
     },
     {
       title: "Complete Bookings",
@@ -45,7 +45,7 @@ const BookingAnalytics = ({ onNavigate }) => {
       valueColor: "text-white",
       dotColor: "bg-white",
       highlighted: true,
-      showIcon: false
+      showIcon: false,
     },
     {
       title: "Request Bookings",
@@ -54,7 +54,7 @@ const BookingAnalytics = ({ onNavigate }) => {
       valueColor: "text-green-500",
       dotColor: "bg-green-500",
       highlighted: false,
-      showIcon: false
+      showIcon: false,
     },
     {
       title: "In Process",
@@ -63,7 +63,7 @@ const BookingAnalytics = ({ onNavigate }) => {
       valueColor: "text-yellow-500",
       dotColor: "bg-yellow-500",
       highlighted: false,
-      showIcon: false
+      showIcon: false,
     },
   ];
 
@@ -129,23 +129,31 @@ const BookingAnalytics = ({ onNavigate }) => {
             <Card className="p-4 md:p-6">
               {/* Filter Section */}
               <div className="space-y-4 mb-6">
-                {/* Date Filter Header */}
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Filter by date</span>
+                {/* Filter Header */}
+                <div className="flex items-center gap-2 mb-4">
+                  <Filter className="w-4 h-4 text-gray-500" />
+                  <span className="text-sm font-medium text-gray-600">
+                    Filters
+                  </span>
                 </div>
 
-                {/* Filters Grid - Responsive */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {/* First Row: Date, Status, Delivery Status */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                  {/* Date Filter */}
+                  <div className="relative">
+                    <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 cursor-pointer hover:bg-gray-100 transition-colors">
+                      <Calendar className="w-4 h-4 text-gray-500" />
+                      <span>Filter by date</span>
+                      <ChevronDown className="w-4 h-4 text-gray-400 ml-auto" />
+                    </div>
+                  </div>
+
                   {/* Status Filter */}
                   <div className="relative">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Status
-                    </label>
                     <select
                       value={statusFilter}
                       onChange={(e) => setStatusFilter(e.target.value)}
-                      className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 pl-10 pr-10 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent appearance-none cursor-pointer hover:bg-gray-100 transition-colors"
                     >
                       <option>All Status</option>
                       <option>New Order</option>
@@ -153,41 +161,38 @@ const BookingAnalytics = ({ onNavigate }) => {
                       <option>In Progress</option>
                       <option>Reject</option>
                     </select>
-                    <ChevronDown className="absolute right-3 top-1/2 transform translate-y-1/4 w-4 h-4 text-gray-400 pointer-events-none" />
+                    <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
                   </div>
 
                   {/* Delivery Status Filter */}
                   <div className="relative">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      Delivery Status
-                    </label>
                     <select
                       value={deliveryFilter}
                       onChange={(e) => setDeliveryFilter(e.target.value)}
-                      className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 pl-10 pr-10 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent appearance-none cursor-pointer hover:bg-gray-100 transition-colors"
                     >
                       <option>All Delivery Status</option>
                       <option>Delivered</option>
                       <option>In Transit</option>
                       <option>Pending</option>
                     </select>
-                    <ChevronDown className="absolute right-3 top-1/2 transform translate-y-1/4 w-4 h-4 text-gray-400 pointer-events-none" />
+                    <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
                   </div>
+                </div>
 
-                  {/* View By Filter */}
-                  <div className="relative sm:col-span-2 lg:col-span-1">
-                    <label className="block text-xs font-medium text-gray-700 mb-1">
-                      View By
-                    </label>
+                {/* Second Row: View By */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="relative">
                     <select
                       value={viewBy}
                       onChange={(e) => setViewBy(e.target.value)}
-                      className="w-full px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 pl-10 pr-10 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent appearance-none cursor-pointer hover:bg-gray-100 transition-colors"
                     >
-                      <option value="Day">Day</option>
-                      <option value="Week">Week</option>
+                      <option value="Day">View by Day</option>
+                      <option value="Week">View by Week</option>
+                      <option value="Month">View by Month</option>
                     </select>
-                    <ChevronDown className="absolute right-3 top-1/2 transform translate-y-1/4 w-4 h-4 text-gray-400 pointer-events-none" />
+                    <Eye className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
                   </div>
                 </div>
               </div>

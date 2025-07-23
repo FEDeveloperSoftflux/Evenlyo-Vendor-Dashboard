@@ -215,7 +215,7 @@ const RoleManagement = ({ onNavigate }) => {
                   className={`flex-1 px-6 py-3 rounded-2xl font-medium text-sm transition-colors mr-2 ${
                     activeView === 'designations'
                       ? 'bg-gradient-primary text-white shadow-md'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   Set Designation
@@ -225,7 +225,7 @@ const RoleManagement = ({ onNavigate }) => {
                   className={`flex-1 px-6 py-3 rounded-2xl font-medium text-sm transition-colors ml-2 ${
                     activeView === 'roles'
                       ? 'bg-gradient-primary text-white shadow-md'
-                      : 'text-gray-600 hover:bg-gray-100'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   Manage Roles

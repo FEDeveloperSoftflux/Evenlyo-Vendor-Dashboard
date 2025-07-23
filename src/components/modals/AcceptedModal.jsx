@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle } from 'lucide-react';
+import { X, CheckCircle } from 'lucide-react';
 
 const AcceptedModal = ({ isOpen, onClose, booking }) => {
   if (!isOpen) return null;
@@ -9,64 +9,51 @@ const AcceptedModal = ({ isOpen, onClose, booking }) => {
       <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         {/* Background overlay */}
         <div 
-          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
           onClick={onClose}
         ></div>
 
         {/* Modal */}
-        <div className="inline-block align-bottom bg-white rounded-2xl px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-          <div className="sm:flex sm:items-start">
-            <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-              <CheckCircle className="h-6 w-6 text-green-600" />
+        <div className="inline-block align-bottom bg-white rounded-3xl px-6 pt-6 pb-6 text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+          {/* Close button */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gradient-primary text-white hover:opacity-90 transition-opacity"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
+          <div className="text-center">
+            {/* Success Icon */}
+            <div className="mx-auto flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
+              <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                Booking Accepted
-              </h3>
-              <div className="mt-2">
-                <p className="text-sm text-gray-500">
-                  This booking has been successfully accepted.
-                </p>
+            
+            <h2 className="text-xl font-bold text-gray-900 mb-2">
+              Booking Accepted
+            </h2>
+            <p className="text-sm text-gray-500 mb-6">
+              This booking has been successfully accepted.
+            </p>
+
+            {/* Booking details */}
+            {booking && (
+              <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left">
+                <h4 className="font-medium text-gray-900">{booking.title}</h4>
+                <p className="text-sm text-gray-600">{booking.date} • {booking.time}</p>
+                <p className="text-sm text-gray-600">{booking.client}</p>
               </div>
+            )}
 
-              {/* Booking details */}
-              {booking && (
-                <div className="mt-4 bg-gray-50 rounded-lg p-3">
-                  <h4 className="font-medium text-gray-900">{booking.title}</h4>
-                  <p className="text-sm text-gray-600">{booking.date} • {booking.time}</p>
-                  <p className="text-sm text-gray-600">{booking.client}</p>
-                </div>
-              )}
-
-              <div className="flex space-x-3 pt-4">
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="flex-1 bg-green-600 py-2 px-4 border border-transparent rounded-lg text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-
-            {/* Close button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-            >
-              <span className="sr-only">Close</span>
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full bg-gradient-primary py-3 px-6 rounded-2xl text-sm font-semibold text-white hover:opacity-90 transition-opacity"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
-import { X, AlertTriangle } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const RejectModal = ({ isOpen, onClose, onConfirm, booking }) => {
   const [rejectReason, setRejectReason] = useState('');
   const [selectedReason, setSelectedReason] = useState('');
 
   const predefinedReasons = [
-    'Double booking',
-    'Venue unavailable',
-    'Equipment not available',
-    'Staff shortage',
-    'Weather conditions',
-    'Client requirements not met',
-    'Other'
+    'I am busy',
+    'Your location is too far',
+    'My team is busy at that time, sorry',
+    'Can you reschedule for another day?',
+    'Custom reason'
   ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const finalReason = selectedReason === 'Other' ? rejectReason : selectedReason;
+    const finalReason = selectedReason === 'Custom reason' ? rejectReason : selectedReason;
     onConfirm(finalReason);
     setRejectReason('');
     setSelectedReason('');
@@ -37,101 +35,90 @@ const RejectModal = ({ isOpen, onClose, onConfirm, booking }) => {
       <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
         {/* Background overlay */}
         <div 
-          className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
           onClick={handleClose}
         ></div>
 
         {/* Modal */}
-        <div className="inline-block align-bottom bg-white rounded-2xl px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
-          <div className="sm:flex sm:items-start">
-            <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-              <AlertTriangle className="h-6 w-6 text-red-600" />
-            </div>
-            <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left flex-1">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
-                Reject Booking
-              </h3>
-              <div className="mt-2">
-                <p className="text-sm text-gray-500">
-                  Are you sure you want to reject this booking? Please select a reason.
-                </p>
+        <div className="inline-block align-bottom bg-white rounded-3xl px-6 pt-6 pb-6 text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+          {/* Close button */}
+          <button
+            onClick={handleClose}
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gradient-primary text-white hover:opacity-90 transition-opacity"
+          >
+            <X className="h-5 w-5" />
+          </button>
+
+          <div className="text-center">
+            <h2 className="text-xl font-bold text-gray-900 mb-2">
+              Reject Booking
+            </h2>
+            <p className="text-sm text-gray-500 mb-6">
+              Please select a reason for rejecting this booking:
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Reason selection */}
+              <div className="space-y-3 text-left">
+                {predefinedReasons.map((reason) => (
+                  <label key={reason} className="flex items-center cursor-pointer group">
+                    <div className="relative">
+                      <input
+                        type="radio"
+                        name="rejectReason"
+                        value={reason}
+                        checked={selectedReason === reason}
+                        onChange={(e) => setSelectedReason(e.target.value)}
+                        className="sr-only"
+                      />
+                      <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+                        selectedReason === reason 
+                          ? 'bg-gradient-primary border-transparent' 
+                          : 'border-gray-300 group-hover:border-primary-from'
+                      }`}>
+                        {selectedReason === reason && (
+                          <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </div>
+                    </div>
+                    <span className="ml-3 text-sm font-medium text-gray-900">{reason}</span>
+                  </label>
+                ))}
               </div>
 
-              <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-                {/* Booking details */}
-                {booking && (
-                  <div className="bg-gray-50 rounded-lg p-3">
-                    <h4 className="font-medium text-gray-900">{booking.title}</h4>
-                    <p className="text-sm text-gray-600">{booking.date} • {booking.time}</p>
-                    <p className="text-sm text-gray-600">{booking.client}</p>
-                  </div>
-                )}
-
-                {/* Reason selection */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Reason for rejection
-                  </label>
-                  <div className="space-y-2 max-h-32 overflow-y-auto">
-                    {predefinedReasons.map((reason) => (
-                      <label key={reason} className="flex items-center">
-                        <input
-                          type="radio"
-                          name="rejectReason"
-                          value={reason}
-                          checked={selectedReason === reason}
-                          onChange={(e) => setSelectedReason(e.target.value)}
-                          className="mr-2 text-red-600 focus:ring-red-500"
-                        />
-                        <span className="text-sm text-gray-700">{reason}</span>
-                      </label>
-                    ))}
-                  </div>
+              {/* Custom reason input */}
+              {selectedReason === 'Custom reason' && (
+                <div className="mt-4">
+                  <textarea
+                    value={rejectReason}
+                    onChange={(e) => setRejectReason(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-from focus:border-transparent resize-none"
+                    rows="3"
+                    placeholder="Enter your custom reason..."
+                    required
+                  />
                 </div>
+              )}
 
-                {/* Custom reason input */}
-                {selectedReason === 'Other' && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Please specify
-                    </label>
-                    <textarea
-                      value={rejectReason}
-                      onChange={(e) => setRejectReason(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                      rows="3"
-                      placeholder="Enter custom reason..."
-                      required
-                    />
-                  </div>
-                )}
-
-                <div className="flex space-x-3 pt-4">
-                  <button
-                    type="button"
-                    onClick={handleClose}
-                    className="flex-1 bg-white py-2 px-4 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={!selectedReason || (selectedReason === 'Other' && !rejectReason.trim())}
-                    className="flex-1 bg-red-600 py-2 px-4 border border-transparent rounded-lg text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Reject Booking
-                  </button>
-                </div>
-              </form>
-            </div>
-
-            {/* Close button */}
-            <button
-              onClick={handleClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-            >
-              <X className="h-6 w-6" />
-            </button>
+              <div className="flex space-x-3 pt-6">
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="flex-1 bg-gray-100 py-3 px-6 rounded-2xl text-sm font-semibold text-gray-700 hover:bg-gray-200 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={!selectedReason || (selectedReason === 'Custom reason' && !rejectReason.trim())}
+                  className="flex-1 bg-gradient-primary py-3 px-6 rounded-2xl text-sm font-semibold text-white hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Confirm Rejection
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
