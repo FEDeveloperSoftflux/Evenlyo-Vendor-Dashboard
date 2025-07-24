@@ -178,25 +178,30 @@ const InboxChat = ({ onNavigate }) => {
         {/* Chat Content */}
         <main className={`flex-1 overflow-hidden bg-background ${!isMobile ? 'p-4' : ''}`}>
           <div className={`h-full flex ${!isMobile ? 'gap-4' : ''}`}>
-            {/* Mobile Header */}
-            {isMobile && !showSidebar && activeChat && (
+            {/* Mobile Header with Menu */}
+            {isMobile && !showSidebar && (
               <div className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-200 p-3 sm:p-4 z-30">
-                <button
-                  onClick={handleBackToSidebar}
-                  className="text-blue-600 font-medium text-sm sm:text-base"
-                  aria-label="Back to chat list"
-                >
-                  ← Back
-                </button>
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={handleBackToSidebar}
+                    className="flex items-center gap-2 text-blue-600 font-medium text-sm sm:text-base"
+                    aria-label="Open chat list"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {activeChat ? activeChat.name : 'Messages'}
+                  </button>
+                </div>
               </div>
             )}
 
             {/* Chat Sidebar */}
             <div className={`
               ${isMobile 
-                ? `fixed inset-y-0 left-0 z-20 w-full bg-white/95 backdrop-blur-md transform transition-transform duration-300 ${
+                ? `fixed inset-0 z-50 w-full bg-white transform transition-transform duration-300 ${
                     showSidebar ? 'translate-x-0' : '-translate-x-full'
-                  } shadow-xl border-r border-white/20`
+                  } shadow-xl`
                 : 'w-80 flex-shrink-0'
               }
             `}>
@@ -204,6 +209,8 @@ const InboxChat = ({ onNavigate }) => {
                 chats={chats}
                 activeChat={activeChat}
                 onChatSelect={handleChatSelect}
+                isMobile={isMobile}
+                onClose={() => setShowSidebar(false)}
                 className={`h-full ${!isMobile ? 'rounded-2xl overflow-hidden' : ''}`}
               />
             </div>
@@ -227,10 +234,23 @@ const InboxChat = ({ onNavigate }) => {
               )}
             </div>
 
+            {/* Mobile Chat List FAB */}
+            {isMobile && !showSidebar && (
+              <button
+                onClick={() => setShowSidebar(true)}
+                className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-gradient-primary text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center"
+                aria-label="Open chat list"
+              >
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+            )}
+
             {/* Mobile Overlay */}
             {isMobile && showSidebar && (
               <div
-                className="fixed inset-0 bg-black/30 backdrop-blur-sm z-10"
+                className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
                 onClick={() => setShowSidebar(false)}
                 aria-hidden="true"
               />

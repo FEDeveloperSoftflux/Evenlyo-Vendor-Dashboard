@@ -6,7 +6,9 @@ const ChatSidebar = ({
   chats = [], 
   activeChat, 
   onChatSelect,
-  className = '' 
+  className = '',
+  isMobile = false,
+  onClose
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -24,15 +26,37 @@ const ChatSidebar = ({
   };
 
   return (
-    <div className={`w-full h-full flex flex-col bg-white/95 backdrop-blur-sm shadow-card border border-white/20 rounded-2xl overflow-hidden ${className}`}>
+    <div className={`w-full h-full flex flex-col bg-white ${isMobile ? '' : '/95 backdrop-blur-sm shadow-card border border-white/20 rounded-2xl overflow-hidden'} ${className}`}>
+      {/* Mobile Header with Close Button */}
+      {isMobile && (
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
+          <h2 className="text-lg font-semibold text-gray-900">
+            Messages
+          </h2>
+          <button
+            onClick={onClose}
+            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            aria-label="Close chat sidebar"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      )}
+      
       {/* Header */}
-      <div className="p-3 sm:p-4 border-b border-gray-200">
-        <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">
-          All Chat with client
-        </h2>
-        <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
-          Can talk with client
-        </p>
+      <div className={`p-3 sm:p-4 ${isMobile ? 'border-b border-gray-200' : 'border-b border-gray-200'}`}>
+        {!isMobile && (
+          <>
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">
+              All Chat with client
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
+              Can talk with client
+            </p>
+          </>
+        )}
         
         {/* Search Input */}
         <SearchInput
