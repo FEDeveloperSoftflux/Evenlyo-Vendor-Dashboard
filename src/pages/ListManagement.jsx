@@ -25,6 +25,16 @@ const ListManagement = ({ onNavigate }) => {
   const [statusFilter, setStatusFilter] = React.useState('');
   const [dateFilter, setDateFilter] = React.useState('');
 
+  // Sample chart data - replace with actual data from your API/state
+  const chartData = [
+    { name: "Food & Drinks", value: 450, shortName: "Food & Drinks" },
+    { name: "Decoration & Styling", value: 1200, shortName: "Decoration" },
+    { name: "Location & Party Tents", value: 800, shortName: "Location" },
+    { name: "Entertainment & Attractions", value: 950, shortName: "Entertainment" },
+    { name: "Staff & Services", value: 600, shortName: "Staff" },
+    { name: "Photography & Videography", value: 750, shortName: "Photography" },
+  ];
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -132,7 +142,11 @@ const ListManagement = ({ onNavigate }) => {
 
           {/* Bar Chart Section */}
           <div className="mb-8">
-            <ListingBarChart />
+            <ListingBarChart 
+              data={chartData}
+              title="Most Booked Items Overview"
+              className="shadow-sm"
+            />
           </div>
 
           {/* Filters */}

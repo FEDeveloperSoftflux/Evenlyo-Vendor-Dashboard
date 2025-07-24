@@ -39,7 +39,7 @@ const EarningsStatCards = () => {
       icon: TrendingUp,
       highlighted: false,
       iconBg: "border border-gray-200",
-      iconColor: "opacity-90",
+      iconColor: "text-pink-600",
       background: "bg-white",
       border: "border border-gray-200",
     },

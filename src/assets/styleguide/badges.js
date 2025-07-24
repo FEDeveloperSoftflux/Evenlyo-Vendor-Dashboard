@@ -10,15 +10,23 @@ export const badgeStyles = {
   live: "bg-green-100 text-green-600",
   block: "bg-red-100 text-red-600",
   // Tracking-specific statuses
-  delivered: "bg-green-100 text-green-600",
+  delivered: "bg-yellow-200 text-yellow-800", // Golden color
   "on the way": "bg-pink-100 text-pink-600",
-  "received back": "bg-yellow-100 text-yellow-600",
+  "received back": "bg-yellow-50 text-yellow-600", // Lighter yellow
   claim: "bg-purple-100 text-purple-600",
   complete: "bg-green-100 text-green-600",
   // Role management statuses
   active: "bg-green-100 text-green-600",
   "de-active": "bg-red-100 text-red-600",
   inactive: "bg-red-100 text-red-600",
+  // Billing-specific statuses
+  paid: "bg-green-100 text-green-600",
+  pending: "bg-yellow-100 text-yellow-600",
+  overdue: "bg-red-100 text-red-600",
+  left: "bg-red-100 text-red-600",
+  // Notification-specific statuses
+  unread: "bg-pink-100 text-pink-600",
+  read: "bg-gray-100 text-gray-600",
 };
 
 export const getBadgeStyle = (status) => {

@@ -91,7 +91,15 @@ const Sidebar = ({ activeItem = "Dashboard", onNavigate }) => {
             ? "bg-primary-from/10 text-primary-mid"
             : "text-gray-700 hover:bg-gray-50 hover:text-gray-800"
         }`}
-        onClick={() => onNavigate && onNavigate(item.name)}
+        onClick={() => {
+          if (onNavigate) {
+            onNavigate(item.name);
+          }
+          // Auto-close mobile sidebar on navigation
+          if (isMobileOpen) {
+            closeMobile();
+          }
+        }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setShowTooltip(false)}
       >

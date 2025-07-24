@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown, Calendar, Filter, Eye } from "lucide-react";
 import StatCards from "../components/dashboard/StatCards";
 import BookingCalendar from "../components/booking/NewBookingCalendar";
@@ -19,6 +19,12 @@ const BookingAnalytics = ({ onNavigate }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
   const [isAcceptedModalOpen, setIsAcceptedModalOpen] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDateRange, setSelectedDateRange] = useState({
+    from: '',
+    to: ''
+  });
+  const datePickerRef = useRef(null);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -27,6 +33,23 @@ const BookingAnalytics = ({ onNavigate }) => {
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
+
+  // Close date picker when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+        setShowDatePicker(false);
+      }
+    };
+
+    if (showDatePicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDatePicker]);
 
   const statsData = [
     {
@@ -99,6 +122,32 @@ const BookingAnalytics = ({ onNavigate }) => {
     setSelectedBooking(null);
   };
 
+  const handleDateRangeChange = (field, value) => {
+    setSelectedDateRange(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleDateRangeApply = () => {
+    console.log('Date range applied:', selectedDateRange);
+    // Apply filter logic here
+    setShowDatePicker(false);
+  };
+
+  const handleDateRangeClear = () => {
+    setSelectedDateRange({ from: '', to: '' });
+  };
+
+  const getDateFilterText = () => {
+    if (selectedDateRange.from || selectedDateRange.to) {
+      const fromText = selectedDateRange.from ? new Date(selectedDateRange.from).toLocaleDateString() : 'Start';
+      const toText = selectedDateRange.to ? new Date(selectedDateRange.to).toLocaleDateString() : 'End';
+      return `${fromText} - ${toText}`;
+    }
+    return 'Filter by date';
+  };
+
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar */}
@@ -140,12 +189,75 @@ const BookingAnalytics = ({ onNavigate }) => {
                 {/* First Row: Date, Status, Delivery Status */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                   {/* Date Filter */}
-                  <div className="relative">
-                    <div className="flex items-center gap-2 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 cursor-pointer hover:bg-gray-100 transition-colors">
+                  <div className="relative" ref={datePickerRef}>
+                    <div 
+                      onClick={() => setShowDatePicker(!showDatePicker)}
+                      className="flex items-center gap-2 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-600 cursor-pointer hover:bg-gray-100 transition-colors"
+                    >
                       <Calendar className="w-4 h-4 text-gray-500" />
-                      <span>Filter by date</span>
-                      <ChevronDown className="w-4 h-4 text-gray-400 ml-auto" />
+                      <span className={selectedDateRange.from || selectedDateRange.to ? 'text-gray-900 font-medium' : ''}>
+                        {getDateFilterText()}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-gray-400 ml-auto transition-transform ${
+                        showDatePicker ? 'rotate-180' : ''
+                      }`} />
                     </div>
+                    
+                    {/* Date Picker Dropdown */}
+                    {showDatePicker && (
+                      <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-4">
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <h4 className="text-sm font-medium text-gray-900">Select Date Range</h4>
+                            {(selectedDateRange.from || selectedDateRange.to) && (
+                              <button
+                                onClick={handleDateRangeClear}
+                                className="text-xs text-primary-mid hover:text-primary-from transition-colors"
+                              >
+                                Clear
+                              </button>
+                            )}
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-xs font-medium text-gray-700 mb-1">From Date</label>
+                              <input
+                                type="date"
+                                value={selectedDateRange.from}
+                                onChange={(e) => handleDateRangeChange('from', e.target.value)}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-mid focus:border-transparent"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-medium text-gray-700 mb-1">To Date</label>
+                              <input
+                                type="date"
+                                value={selectedDateRange.to}
+                                onChange={(e) => handleDateRangeChange('to', e.target.value)}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary-mid focus:border-transparent"
+                                min={selectedDateRange.from}
+                              />
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
+                            <button
+                              onClick={() => setShowDatePicker(false)}
+                              className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-800 transition-colors"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={handleDateRangeApply}
+                              className="px-4 py-1.5 bg-gradient-primary text-white text-sm rounded-md hover:opacity-90 transition-opacity"
+                            >
+                              Apply
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Status Filter */}

@@ -68,6 +68,7 @@ const RoleManagement = ({ onNavigate }) => {
       roles: ['Manager', 'Administrator'],
       email: 'john.doe@example.com',
       phone: '+1234567890',
+      password: 'password123',
       dateTime: '1/5/2024 3:00 AM',
       avatar: jaydeepImage,
       status: 'Active'
@@ -78,6 +79,7 @@ const RoleManagement = ({ onNavigate }) => {
       roles: ['Editor', 'Contributor'],
       email: 'jane.smith@example.com',
       phone: '+0987654321',
+      password: 'securepass456',
       dateTime: '1/6/2024 10:00 AM',
       avatar: jaydeepImage,
       status: 'De-Active'
@@ -88,6 +90,7 @@ const RoleManagement = ({ onNavigate }) => {
       roles: ['Supervisor', 'Reviewer'],
       email: 'alice.brown@example.com',
       phone: '+1122334455',
+      password: 'alicepass789',
       dateTime: '1/7/2024 9:30 AM',
       avatar: jaydeepImage,
       status: 'Active'
@@ -98,6 +101,7 @@ const RoleManagement = ({ onNavigate }) => {
       roles: ['Support', 'Operator'],
       email: 'bob.white@example.com',
       phone: '+1098765432',
+      password: 'bobsecure123',
       dateTime: '1/8/2024 2:15 PM',
       avatar: jaydeepImage,
       status: 'Active'
@@ -120,9 +124,10 @@ const RoleManagement = ({ onNavigate }) => {
     const newRole = {
       id: roles.length + 1,
       name: newRoleData.fullName,
-      designation: newRoleData.designation,
+      roles: [newRoleData.designation],
       email: newRoleData.email,
       phone: newRoleData.phoneNumber,
+      password: newRoleData.password,
       dateTime: new Date().toLocaleString(),
       avatar: '/api/placeholder/32/32',
       permissions: Object.keys(newRoleData.permissions)

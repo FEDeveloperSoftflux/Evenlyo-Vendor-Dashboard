@@ -2,7 +2,7 @@ import React from 'react';
 import StockTableRow from './StockTableRow';
 import Badge from '../ui/Badge';
 
-const StockTable = ({ data, activeTab, onStockIn }) => {
+const StockTable = ({ data, activeTab, onStockIn, onEdit }) => {
   const getColumns = () => {
     switch (activeTab) {
       case 'check-in':
@@ -68,8 +68,8 @@ const StockTable = ({ data, activeTab, onStockIn }) => {
           <StockTableRow
             {...commonProps}
             quantity={item.inStockQuantity}
-            dateTime={item.dateTime}
             onStockIn={() => onStockIn(item)}
+            onEdit={() => onEdit && onEdit(item)}
           />
         );
       default:

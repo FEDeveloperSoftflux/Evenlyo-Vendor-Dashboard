@@ -142,6 +142,11 @@ const StockManagement = ({ onNavigate }) => {
     // Here you would typically update the stock data
   };
 
+  const handleEditStock = (item) => {
+    console.log('Edit stock for item:', item);
+    // Here you would typically open an edit modal or navigate to edit page
+  };
+
   const SelectField = ({ value, onChange, options, placeholder }) => (
     <div className="relative">
       <select
@@ -280,7 +285,8 @@ const StockManagement = ({ onNavigate }) => {
               <StockTable 
                 data={stockData} 
                 activeTab="stock-in" 
-                onStockIn={handleStockIn} 
+                onStockIn={handleStockIn}
+                onEdit={handleEditStock}
               />
             </StockTabPanel>
           </div>

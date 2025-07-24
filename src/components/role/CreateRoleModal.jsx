@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Eye, EyeOff } from 'lucide-react';
 import Button from '../ui/Button';
 
 const CreateRoleModal = ({ isOpen, onClose, onSubmit, designations = [] }) => {
@@ -16,6 +16,8 @@ const CreateRoleModal = ({ isOpen, onClose, onSubmit, designations = [] }) => {
       notifications: false
     }
   });
+  
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -49,6 +51,7 @@ const CreateRoleModal = ({ isOpen, onClose, onSubmit, designations = [] }) => {
         notifications: false
       }
     });
+    setShowPassword(false);
     onClose();
   };
 
@@ -66,6 +69,7 @@ const CreateRoleModal = ({ isOpen, onClose, onSubmit, designations = [] }) => {
         notifications: false
       }
     });
+    setShowPassword(false);
     onClose();
   };
 
@@ -163,16 +167,30 @@ const CreateRoleModal = ({ isOpen, onClose, onSubmit, designations = [] }) => {
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
               Set Password
             </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Set Password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-mid focus:border-transparent transition-colors"
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                placeholder="Set Password"
+                className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-mid focus:border-transparent transition-colors"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
+              </button>
+            </div>
           </div>
 
 

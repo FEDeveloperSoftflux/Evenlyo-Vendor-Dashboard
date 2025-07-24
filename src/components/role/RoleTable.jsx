@@ -1,10 +1,19 @@
-import React from 'react';
-import { Edit, Trash2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Edit, Trash2, Eye, EyeOff } from 'lucide-react';
 import RoleTableRow from './RoleTableRow';
 import Badge from '../ui/Badge';
 import StatusToggle from './StatusToggle';
 
 const RoleTable = ({ roles = [], onEdit, onDelete, onToggleStatus }) => {
+  const [showPasswords, setShowPasswords] = useState({});
+  
+  const togglePasswordVisibility = (roleId) => {
+    setShowPasswords(prev => ({
+      ...prev,
+      [roleId]: !prev[roleId]
+    }));
+  };
+  
   return (
     <div className="w-full">
       {/* Desktop/Tablet Table View */}
@@ -20,6 +29,9 @@ const RoleTable = ({ roles = [], onEdit, onDelete, onToggleStatus }) => {
               </th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
                 Contact
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
+                Password
               </th>
               <th className="px-6 py-3 text-left text-xs font-semibold text-pink-800 uppercase tracking-wider">
                 Roles
@@ -102,6 +114,27 @@ const RoleTable = ({ roles = [], onEdit, onDelete, onToggleStatus }) => {
                 <div className="text-sm text-gray-900">
                   <span>{role.email}</span>
                   <span className="block text-xs text-gray-500 leading-tight">{role.phone}</span>
+                </div>
+              </div>
+              
+              <div>
+                <span className="font-medium text-gray-700">Password:</span>
+                <div className="flex items-center space-x-2 mt-1">
+                  <span className="text-sm text-gray-900 font-mono">
+                    {showPasswords[role.id] ? role.password : '•'.repeat(8)}
+                  </span>
+                  <button
+                    onClick={() => togglePasswordVisibility(role.id)}
+                    className="p-1 text-gray-500 hover:text-gray-700 transition-colors"
+                    title={showPasswords[role.id] ? "Hide password" : "Show password"}
+                    aria-label={showPasswords[role.id] ? "Hide password" : "Show password"}
+                  >
+                    {showPasswords[role.id] ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
+                  </button>
                 </div>
               </div>
             </div>

@@ -6,6 +6,9 @@ import Tracking from './pages/Tracking';
 import RoleManagement from './pages/RoleManagement';
 import StockManagement from './pages/StockManagement';
 import AnalyticsReport from './pages/AnalyticsReport';
+import InboxChat from './pages/InboxChat';
+import Billings from './pages/Billings';
+import Notifications from './pages/Notifications';
 import { SidebarProvider } from './contexts/SidebarContext';
 
 function App() {
@@ -31,6 +34,12 @@ function App() {
         return <StockManagement onNavigate={handleNavigation} />;
       case 'Analytics & Report':
         return <AnalyticsReport onNavigate={handleNavigation} />;
+      case 'Inbox / Chat':
+        return <InboxChat onNavigate={handleNavigation} />;
+      case 'Billing':
+        return <Billings onNavigate={handleNavigation} />;
+      case 'Notifications':
+        return <Notifications onNavigate={handleNavigation} />;
       default:
         return <Dashboard onNavigate={handleNavigation} />;
     }

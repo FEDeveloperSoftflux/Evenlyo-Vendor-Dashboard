@@ -1,5 +1,5 @@
-import React from 'react';
-import { Edit, Trash2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Edit, Trash2, Eye, EyeOff } from 'lucide-react';
 import Badge from '../ui/Badge';
 import StatusToggle from './StatusToggle';
 
@@ -10,6 +10,7 @@ const RoleTableRow = ({
   onToggleStatus,
   className = '' 
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const handleEdit = () => {
     if (onEdit) onEdit(role);
   };
@@ -59,6 +60,25 @@ const RoleTableRow = ({
         </div>
         <div className="text-xs text-gray-500">
           {role.phone}
+        </div>
+      </td>
+      <td className="py-4 px-6">
+        <div className="flex items-center space-x-2">
+          <div className="text-sm text-gray-900 font-mono">
+            {showPassword ? role.password : '•'.repeat(8)}
+          </div>
+          <button
+            onClick={() => setShowPassword(!showPassword)}
+            className="p-1 text-gray-500 hover:text-gray-700 transition-colors"
+            title={showPassword ? "Hide password" : "Show password"}
+            aria-label={showPassword ? "Hide password" : "Show password"}
+          >
+            {showPassword ? (
+              <EyeOff className="w-4 h-4" />
+            ) : (
+              <Eye className="w-4 h-4" />
+            )}
+          </button>
         </div>
       </td>
       <td className="py-4 px-6">
