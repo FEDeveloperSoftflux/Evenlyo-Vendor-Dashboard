@@ -66,8 +66,8 @@ const Sidebar = ({ activeItem = "Dashboard", onNavigate }) => {
   ];
 
   const bottomNavigation = [
-    { name: "Profile Management", icon: profileIcon, active: false },
-    { name: "Setting", icon: settingIcon, active: false },
+    { name: "Profile Management", icon: profileIcon, active: activeItem === "Profile Management" },
+    { name: "Setting", icon: settingIcon, active: activeItem === "Setting" },
   ];
 
   const NavItem = ({ item }) => {
@@ -187,8 +187,8 @@ const Sidebar = ({ activeItem = "Dashboard", onNavigate }) => {
             {/* Collapsed state - show mini logo or icon */}
             {isCollapsed && (
               <div className="flex items-center justify-center w-full">
-                <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">E</span>
+                <div className="w-6 h-6 bg-gradient-primary rounded flex items-center justify-center">
+                  <span className="text-white font-bold text-xs">E</span>
                 </div>
               </div>
             )}
@@ -215,8 +215,11 @@ const Sidebar = ({ activeItem = "Dashboard", onNavigate }) => {
           </div>
         </div>
 
+        {/* Subtle border between logo and nav links */}
+        <div className="mx-4 border-b border-gray-100"></div>
+
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto">
+        <nav className="flex-1 overflow-y-auto pt-4">
           <div className="space-y-1">
             {navigation.map((item) => (
               <NavItem key={item.name} item={item} />

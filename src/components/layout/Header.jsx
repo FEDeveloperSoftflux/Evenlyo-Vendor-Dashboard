@@ -19,11 +19,11 @@ const Header = ({
   return (
     <>
       <header className="bg-background">
-        {/* Subtle border that doesn't touch sidebar on desktop, full width on mobile */}
+        {/* Subtle border that doesn't touch sidebar on desktop, shortened on mobile and desktop */}
         <div
           className={`absolute left-0 ${
             isCollapsed ? "lg:left-20" : "lg:left-64"
-          } right-0 h-px bg-gray-200 top-[74px] z-10 transition-all duration-300`}
+          } right-4 lg:right-8 h-px bg-gray-200 top-[74px] z-10 transition-all duration-300`}
         ></div>
         {/* Top Header */}
         <div className="px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4">

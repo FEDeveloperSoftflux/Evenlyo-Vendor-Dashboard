@@ -9,6 +9,8 @@ import AnalyticsReport from './pages/AnalyticsReport';
 import InboxChat from './pages/InboxChat';
 import Billings from './pages/Billings';
 import Notifications from './pages/Notifications';
+import ProfileManagement from './pages/ProfileManagement';
+import Settings from './pages/Settings';
 import { SidebarProvider } from './contexts/SidebarContext';
 
 function App() {
@@ -40,6 +42,10 @@ function App() {
         return <Billings onNavigate={handleNavigation} />;
       case 'Notifications':
         return <Notifications onNavigate={handleNavigation} />;
+      case 'Profile Management':
+        return <ProfileManagement onNavigate={handleNavigation} />;
+      case 'Setting':
+        return <Settings onNavigate={handleNavigation} />;
       default:
         return <Dashboard onNavigate={handleNavigation} />;
     }

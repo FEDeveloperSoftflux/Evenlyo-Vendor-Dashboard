@@ -66,7 +66,7 @@ const ListManagement = ({ onNavigate }) => {
                 variant="secondary" 
                 size="sm" 
                 onClick={() => setCategoryModalOpen(true)}
-                className="flex items-center justify-center space-x-2 px-5 py-2.5 text-sm border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 rounded-full font-medium transition-colors"
+                className="flex items-center justify-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add More Categories</span>
@@ -75,7 +75,7 @@ const ListManagement = ({ onNavigate }) => {
                 variant="primary" 
                 size="sm" 
                 onClick={() => setModalOpen(true)}
-                className="flex items-center justify-center space-x-2 px-5 py-2.5 text-sm bg-gradient-to-r from-pink-500 to-purple-600 text-white hover:from-pink-600 hover:to-purple-700 rounded-full font-medium transition-all shadow-md"
+                className="flex items-center justify-center space-x-2"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add New Listing</span>
