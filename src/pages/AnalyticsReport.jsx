@@ -38,11 +38,11 @@ const AnalyticsReport = ({ onNavigate }) => {
       />
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header 
-          userName="John Doe" 
-          userRole="Vendor" 
-          currentModule="Analytics & Report" 
-          onMenuToggle={toggleSidebar} 
+        <Header
+          userName="John Doe"
+          userRole="Vendor"
+          currentModule="Analytics & Report"
+          onMenuToggle={toggleSidebar}
         />
 
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
@@ -118,7 +118,7 @@ const AnalyticsReport = ({ onNavigate }) => {
         </main>
       </div>
 
-      {/* Export Report Modal */}
+      {/* */}
       {isExportModalOpen && <ExportReportModal onClose={closeExportModal} />}
     </div>
   );

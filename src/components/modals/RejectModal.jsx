@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import SuccessModal from './SuccessModal';
 
 const RejectModal = ({ isOpen, onClose, onConfirm, booking }) => {
   const [rejectReason, setRejectReason] = useState('');
   const [selectedReason, setSelectedReason] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const predefinedReasons = [
     'I am busy',
@@ -17,9 +19,16 @@ const RejectModal = ({ isOpen, onClose, onConfirm, booking }) => {
     e.preventDefault();
     const finalReason = selectedReason === 'Custom reason' ? rejectReason : selectedReason;
     onConfirm(finalReason);
+    
+    // Close main modal and show success modal
     setRejectReason('');
     setSelectedReason('');
     onClose();
+    setShowSuccessModal(true);
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
   };
 
   const handleClose = () => {
@@ -31,13 +40,14 @@ const RejectModal = ({ isOpen, onClose, onConfirm, booking }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-        {/* Background overlay */}
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-          onClick={handleClose}
-        ></div>
+    <>
+      <div className="fixed inset-0 z-50 overflow-y-auto">
+        <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+          {/* Background overlay */}
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+            onClick={handleClose}
+          ></div>
 
         {/* Modal */}
         <div className="inline-block align-bottom bg-white rounded-3xl px-6 pt-6 pb-6 text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
@@ -121,8 +131,27 @@ const RejectModal = ({ isOpen, onClose, onConfirm, booking }) => {
             </form>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+      
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleSuccessModalClose}
+        type="booking"
+        data={{
+          id: booking?.id || 'Unknown',
+          client: booking?.client || 'Unknown Client',
+          action: 'rejected'
+        }}
+        showSecondaryAction={true}
+        secondaryActionText="View Bookings"
+        onSecondaryAction={() => {
+          handleSuccessModalClose();
+          console.log('Navigate to bookings page');
+        }}
+      />
+    </>
   );
 };
 

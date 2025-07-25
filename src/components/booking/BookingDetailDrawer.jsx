@@ -1,17 +1,25 @@
 import React from "react";
-import { X, Clock, Calendar as CalendarIcon } from "lucide-react";
+import { X, Clock, Calendar as CalendarIcon, MapPin, User } from "lucide-react";
+import { getBadgeStyle } from "../../assets/styleguide/badges";
 
 const BookingDetailDrawer = ({ isOpen, onClose, booking, onAccept, onReject }) => {
   if (!isOpen || !booking) return null;
 
-  const getStatusColor = (status) => {
-    const colors = {
-      "New Order": "bg-pink-100 text-pink-600",
-      Complete: "bg-green-100 text-green-600",
-      "In Progress": "bg-yellow-100 text-yellow-600",
-      Reject: "bg-red-100 text-red-600",
-    };
-    return colors[status] || "bg-gray-100 text-gray-600";
+  // Helper function to get customer initials
+  const getInitials = (name) => {
+    if (!name) return 'C';
+    const words = name.split(' ');
+    if (words.length >= 2) {
+      return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  };
+
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return '2024-06-27';
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
   };
 
   return (
@@ -41,13 +49,16 @@ const BookingDetailDrawer = ({ isOpen, onClose, booking, onAccept, onReject }) =
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-xl font-bold text-gray-900">
-                  Booking #TRK001
+                  {booking.bookingId || `Booking #${booking.id}`}
                 </h3>
+                <p className="text-sm text-gray-600 mt-1">
+                  {booking.service || 'Photography Session'}
+                </p>
               </div>
-              <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
+              <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getBadgeStyle(
                   booking.status
                 )}`}>
-                {booking.status}
+                {booking.title || booking.status}
               </span>
             </div>
 
@@ -58,11 +69,26 @@ const BookingDetailDrawer = ({ isOpen, onClose, booking, onAccept, onReject }) =
               </div>
               <div>
                 <p className="text-lg font-semibold text-gray-900">
-                  2024-06-27
+                  {formatDate(booking.date)}
                 </p>
-                <p className="text-sm text-gray-500">10:00</p>
+                <p className="text-sm text-gray-500">{booking.time || '10:00'}</p>
               </div>
             </div>
+
+            {/* Location */}
+            {booking.location && (
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-gray-600" />
+                </div>
+                <div>
+                  <p className="text-lg font-semibold text-gray-900">
+                    Location
+                  </p>
+                  <p className="text-sm text-gray-500">{booking.location}</p>
+                </div>
+              </div>
+            )}
 
             {/* Tracking ID */}
             <div className="flex items-center gap-3 mb-8">
@@ -71,30 +97,42 @@ const BookingDetailDrawer = ({ isOpen, onClose, booking, onAccept, onReject }) =
               </div>
               <div>
                 <p className="text-lg font-semibold text-gray-900">
-                  Tracking ID
+                  Booking ID
                 </p>
-                <p className="text-sm text-gray-500">TRK001</p>
+                <p className="text-sm text-gray-500">{booking.bookingId || `TRK${booking.id?.toString().padStart(3, '0')}`}</p>
               </div>
             </div>
           </div>
 
           {/* Content */}
           <div className="flex-1 px-6 overflow-y-auto">
-            {/* Buyer Details */}
+            {/* Customer Details */}
             <div className="mb-8">
               <h4 className="text-lg font-bold text-gray-900 mb-4">
-                Buyer Details
+                Customer Details
               </h4>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-400 to-red-400 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">JS</span>
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <span className="text-white font-bold text-sm">{getInitials(booking.customer)}</span>
                 </div>
                 <div>
-                  <h5 className="font-bold text-gray-900">John Smith</h5>
-                  <p className="text-sm text-gray-500">ID: USR001</p>
+                  <h5 className="font-bold text-gray-900">{booking.customer || 'Customer Name'}</h5>
+                  <p className="text-sm text-gray-500">Customer ID: {booking.bookingId || `USR${booking.id?.toString().padStart(3, '0')}`}</p>
                 </div>
               </div>
             </div>
+
+            {/* Booking Description */}
+            {booking.description && (
+              <div className="mb-8">
+                <h4 className="text-lg font-bold text-gray-900 mb-4">
+                  Description
+                </h4>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <p className="text-sm text-gray-700 leading-relaxed">{booking.description}</p>
+                </div>
+              </div>
+            )}
 
             {/* Seller Details */}
             <div className="mb-8">

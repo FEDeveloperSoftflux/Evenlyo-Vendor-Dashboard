@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Clock, User, Eye, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, User, Eye } from 'lucide-react';
 import Button from '../ui/Button';
 
 const NotificationCard = ({ notification, onViewBooking }) => {
@@ -23,26 +23,32 @@ const NotificationCard = ({ notification, onViewBooking }) => {
   const isUnread = notification.status.toLowerCase() === 'unread';
 
   return (
-    <div className="p-4 sm:p-6 hover:bg-gray-50/50 transition-colors duration-200">
+    <div className={`p-6 hover:bg-gray-50/80 transition-all duration-200 border-l-4 ${
+      isUnread ? 'border-l-pink-500 bg-pink-50/20' : 'border-l-transparent'
+    }`}>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         {/* Left Content */}
         <div className="flex-1">
           {/* Header */}
-          <div className="flex items-start gap-3 mb-3">
-            <div className="flex-shrink-0 mt-1">
-              <CheckCircle className="w-5 h-5 text-green-500" />
-            </div>
+          <div className="flex items-start gap-4 mb-3">
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-900 text-base sm:text-lg mb-1">
-                {notification.title}
-              </h3>
-              <p className="text-gray-700 text-sm mb-2">
+              <div className="flex items-center gap-2 mb-2">
+                <h3 className="font-semibold text-gray-900 text-base sm:text-lg">
+                  {notification.title}
+                </h3>
+                {isUnread && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-pink-100 text-pink-600">
+                    New
+                  </span>
+                )}
+              </div>
+              <p className="text-gray-600 text-sm mb-3 leading-relaxed">
                 {notification.description}
               </p>
-              <div className="flex items-center gap-2 text-xs text-red-500">
+              <div className="flex items-center gap-2 text-xs text-gray-500">
                 <Clock className="w-3 h-3" />
                 <span className="font-medium">
-                  5 days
+                  {getTimeElapsed(notification.timestamp)}
                 </span>
               </div>
             </div>
@@ -55,9 +61,10 @@ const NotificationCard = ({ notification, onViewBooking }) => {
             variant="gradient"
             size="sm"
             onClick={() => onViewBooking(notification)}
-            className="bg-gradient-primary text-white hover:shadow-lg hover:scale-105 px-4 py-2 text-sm font-semibold transition-all duration-200 shadow-md"
+            className="bg-gradient-to-r from-[#FF295D] via-[#E31B95] to-[#C817AE] text-white hover:shadow-lg hover:scale-105 px-6 py-2.5 text-sm font-semibold transition-all duration-200 shadow-md rounded-xl"
           >
-            View Booking
+            <Eye className="w-4 h-4 mr-2" />
+            View Details
           </Button>
         </div>
       </div>

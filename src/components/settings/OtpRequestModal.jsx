@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Button from '../ui/Button';
+import SuccessModal from '../modals/SuccessModal';
 
 const OtpRequestModal = ({ isOpen, onClose, onOtpSuccess }) => {
   const [otp, setOtp] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   if (!isOpen) return null;
 
@@ -11,19 +13,26 @@ const OtpRequestModal = ({ isOpen, onClose, onOtpSuccess }) => {
     if (otp.length === 6) {
       onOtpSuccess();
       onClose();
+      setShowSuccessModal(true);
+      setOtp('');
     } else {
       alert('Please enter a valid 6-digit OTP.');
     }
   };
 
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
+  };
+
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-        {/* Background overlay */}
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
-          onClick={onClose}
-        ></div>
+    <>
+      <div className="fixed inset-0 z-50 overflow-y-auto">
+        <div className="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+          {/* Background overlay */}
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 transition-opacity"
+            onClick={onClose}
+          ></div>
 
         {/* Modal */}
         <div className="inline-block align-bottom bg-white rounded-2xl px-6 pt-8 pb-6 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
@@ -46,8 +55,19 @@ const OtpRequestModal = ({ isOpen, onClose, onOtpSuccess }) => {
             Verify OTP
           </Button>
         </div>
+        </div>
       </div>
-    </div>
+      
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleSuccessModalClose}
+        type="settings"
+        title="OTP Verified Successfully!"
+        message="Your account verification has been completed."
+        showSecondaryAction={false}
+      />
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 export const badgeStyles = {
   new: "bg-pink-100 text-pink-600",
   confirmed: "bg-green-100 text-green-600",
-  "in-progress": "bg-purple-100 text-purple-600",
+  "in-progress": "bg-[#FFB3101A] text-yellow-600", // Golden color with transparency
   edit: "bg-yellow-100 text-yellow-600",
   rejected: "bg-red-100 text-red-600",
   addition: "bg-green-100 text-green-600",
@@ -10,11 +10,11 @@ export const badgeStyles = {
   live: "bg-green-100 text-green-600",
   block: "bg-red-100 text-red-600",
   // Tracking-specific statuses
-  delivered: "bg-yellow-200 text-yellow-800", // Golden color
-  "on the way": "bg-pink-100 text-pink-600",
-  "received back": "bg-yellow-50 text-yellow-600", // Lighter yellow
-  claim: "bg-purple-100 text-purple-600",
-  complete: "bg-green-100 text-green-600",
+  delivered: "bg-[#FFB3101A] text-[#FFB310]", // Use Tailwind yellow for golden
+  "on the way": "bg-pink-100  text-[#FF0092]", // Pink color
+  "received back": "bg-yellow-100  text-[#A05807]", // Lighter yellow
+  claim: "bg-pink-100 text-[#E31B95]", // Use primary color for claim
+  complete: "bg-[#04C3731A] text-green-600",
   // Role management statuses
   active: "bg-green-100 text-green-600",
   "de-active": "bg-red-100 text-red-600",

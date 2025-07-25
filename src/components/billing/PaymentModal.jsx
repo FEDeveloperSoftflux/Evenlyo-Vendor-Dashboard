@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { X, CreditCard, Calendar, FileText, CheckCircle } from 'lucide-react';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
+import SuccessModal from '../modals/SuccessModal';
 
 const PaymentModal = ({ invoice, onClose }) => {
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   // Null check for invoice
   if (!invoice) {
@@ -46,7 +48,14 @@ const PaymentModal = ({ invoice, onClose }) => {
     setIsProcessing(false);
     // In a real app, this would update the invoice status
     console.log('Invoice marked as paid');
+    
+    // Close main modal and show success modal
     onClose();
+    setShowSuccessModal(true);
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
   };
 
   const handleDownloadReceipt = () => {
@@ -70,10 +79,11 @@ const PaymentModal = ({ invoice, onClose }) => {
   const isOverdue = invoice.status === 'overdue' || invoice.status === 'left';
 
   return (
-    <div 
-      className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-      onClick={handleBackdropClick}
-    >
+    <>
+      <div 
+        className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+        onClick={handleBackdropClick}
+      >
       <div 
         id="payment-modal"
         className="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 w-full max-w-md mx-auto max-h-[90vh] overflow-y-auto"
@@ -261,8 +271,27 @@ const PaymentModal = ({ invoice, onClose }) => {
             </Button>
           )}
         </div>
+        </div>
       </div>
-    </div>
+      
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleSuccessModalClose}
+        type="payment"
+        data={{
+          id: invoice?.id,
+          amount: invoice?.amount,
+          paymentMethod: "Credit Card"
+        }}
+        showSecondaryAction={true}
+        secondaryActionText="View Invoices"
+        onSecondaryAction={() => {
+          handleSuccessModalClose();
+          console.log('Navigate to invoices page');
+        }}
+      />
+    </>
   );
 };
 

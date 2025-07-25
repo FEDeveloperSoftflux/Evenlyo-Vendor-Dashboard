@@ -191,6 +191,93 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "Jane D.",
         description: "Customer declined booking",
         service: "Portrait Session",
+        location: "Studio A - Downtown",
+        bookingId: "#BK001",
+      },
+      // Additional bookings for March 1, 2025
+      {
+        id: 27,
+        date: "2025-03-01",
+        status: "new",
+        title: "New Order",
+        time: "10:00",
+        customer: "Alex B.",
+        description: "Initial consultation",
+        service: "Wedding Photography",
+        location: "Main Office",
+        bookingId: "#BK027",
+      },
+      {
+        id: 28,
+        date: "2025-03-01",
+        status: "in-progress",
+        title: "In Progress",
+        time: "12:00",
+        customer: "Elizabeth C.",
+        description: "Editing photo session",
+        service: "Editing",
+        location: "Editing Room 2",
+        bookingId: "#BK028",
+      },
+      {
+        id: 29,
+        date: "2025-03-01",
+        status: "complete",
+        title: "Complete",
+        time: "15:00",
+        customer: "Mark R.",
+        description: "Portrait session complete",
+        service: "Portrait Photography",
+        location: "Corner Studio B",
+        bookingId: "#BK029",
+      },
+      {
+        id: 30,
+        date: "2025-03-01",
+        status: "new",
+        title: "New Order",
+        time: "10:00",
+        customer: "Sarah M.",
+        description: "Second consultation at same time",
+        service: "Corporate Photography",
+        location: "Conference Room A",
+        bookingId: "#BK030",
+      },
+      {
+        id: 31,
+        date: "2025-03-01",
+        status: "in-progress",
+        title: "In Progress",
+        time: "15:00",
+        customer: "David L.",
+        description: "Overlapping afternoon session",
+        service: "Event Photography",
+        location: "Hall B",
+        bookingId: "#BK031",
+      },
+      {
+        id: 32,
+        date: "2025-03-01",
+        status: "rejected",
+        title: "Reject",
+        time: "15:00",
+        customer: "Lisa K.",
+        description: "Third booking at 3 PM - cancelled",
+        service: "Fashion Photography",
+        location: "Fashion Studio",
+        bookingId: "#BK032",
+      },
+      {
+        id: 33,
+        date: "2025-03-01",
+        status: "complete",
+        title: "Complete",
+        time: "17:00",
+        customer: "Robert T.",
+        description: "Evening session completed",
+        service: "Portrait Photography",
+        location: "Studio C",
+        bookingId: "#BK033",
       },
       {
         id: 2,
@@ -201,6 +288,8 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "John S.",
         description: "Wedding photography session",
         service: "Wedding Photography",
+        location: "Grand Ballroom Hotel",
+        bookingId: "#BK002",
       },
       {
         id: 3,
@@ -211,6 +300,8 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "Mike R.",
         description: "Portrait session completed",
         service: "Portrait Session",
+        location: "Studio B - Uptown",
+        bookingId: "#BK003",
       },
       {
         id: 4,
@@ -221,6 +312,8 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "Sarah L.",
         description: "Corporate event photography",
         service: "Event Photography",
+        location: "Business Conference Center",
+        bookingId: "#BK004",
       },
       {
         id: 5,
@@ -231,6 +324,8 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "Alex T.",
         description: "Family photoshoot completed",
         service: "Family Photography",
+        location: "Central Park Pavilion",
+        bookingId: "#BK005",
       },
       {
         id: 6,
@@ -241,6 +336,8 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "Emma W.",
         description: "Editing in progress",
         service: "Product Photography",
+        location: "Commercial Studio",
+        bookingId: "#BK006",
       },
       {
         id: 7,
@@ -251,6 +348,8 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "David M.",
         description: "Shoot completed, editing pending",
         service: "Corporate Photography",
+        location: "Executive Boardroom",
+        bookingId: "#BK007",
       },
       {
         id: 8,
@@ -261,8 +360,10 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "Lisa K.",
         description: "Schedule conflict",
         service: "Wedding Photography",
+        location: "Garden Wedding Venue",
+        bookingId: "#BK008",
       },
-      {
+{
         id: 9,
         date: "2025-03-25",
         status: "complete",
@@ -271,7 +372,215 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         customer: "Tom H.",
         description: "Event photography completed",
         service: "Event Photography",
+        location: "Convention Center",
+        bookingId: "#BK009",
       },
+      // Additional dummy data for more variety in day view
+      {
+        id: 10,
+        date: "2025-03-03",
+        status: "new",
+        title: "New Order",
+        time: "10:00",
+        customer: "Anna B.",
+        description: "Maternity photoshoot session",
+        service: "Maternity Photography",
+        location: "Garden Studio",
+        bookingId: "#BK010",
+      },
+      {
+        id: 11,
+        date: "2025-03-03",
+        status: "in-progress",
+        title: "In Progress",
+        time: "15:30",
+        customer: "Robert J.",
+        description: "Post-processing headshots",
+        service: "Headshot Photography",
+        location: "Professional Studio",
+        bookingId: "#BK011",
+      },
+      {
+        id: 12,
+        date: "2025-03-07",
+        status: "complete",
+        title: "Complete",
+        time: "8:00",
+        customer: "Maria G.",
+        description: "Sunrise engagement session",
+        service: "Engagement Photography",
+        location: "Lakeside Park",
+        bookingId: "#BK012",
+      },
+      {
+        id: 13,
+        date: "2025-03-07",
+        status: "new",
+        title: "New Order",
+        time: "17:00",
+        customer: "Chris P.",
+        description: "Corporate headshots",
+        service: "Corporate Photography",
+        location: "Executive Office",
+        bookingId: "#BK013",
+      },
+      {
+        id: 14,
+        date: "2025-03-10",
+        status: "rejected",
+        title: "Reject",
+        time: "14:30",
+        customer: "Sophie M.",
+        description: "Client cancelled due to weather",
+        service: "Outdoor Photography",
+        location: "Mountain Trail",
+        bookingId: "#BK014",
+      },
+      {
+        id: 15,
+        date: "2025-03-14",
+        status: "in-progress",
+        title: "In Progress",
+        time: "12:00",
+        customer: "James L.",
+        description: "Product catalog shoot",
+        service: "Product Photography",
+        location: "White Backdrop Studio",
+        bookingId: "#BK015",
+      },
+      {
+        id: 16,
+        date: "2025-03-18",
+        status: "complete",
+        title: "Complete",
+        time: "10:30",
+        customer: "Rachel F.",
+        description: "Birthday party coverage",
+        service: "Event Photography",
+        location: "Community Center",
+        bookingId: "#BK016",
+      },
+      {
+        id: 17,
+        date: "2025-03-22",
+        status: "new",
+        title: "New Order",
+        time: "16:30",
+        customer: "Kevin W.",
+        description: "Architecture photography",
+        service: "Architecture Photography",
+        location: "Modern Building Complex",
+        bookingId: "#BK017",
+      },
+      {
+        id: 18,
+        date: "2025-03-26",
+        status: "in-progress",
+        title: "In Progress",
+        time: "13:30",
+        customer: "Linda S.",
+        description: "Fashion portfolio shoot",
+        service: "Fashion Photography",
+        location: "Fashion Studio Downtown",
+        bookingId: "#BK018",
+      },
+      {
+        id: 19,
+        date: "2025-03-28",
+        status: "complete",
+        title: "Complete",
+        time: "15:00",
+        customer: "Mark D.",
+        description: "Real estate photography",
+        service: "Real Estate Photography",
+        location: "Luxury Home Listing",
+        bookingId: "#BK019",
+      },
+      {
+        id: 20,
+        date: "2025-03-30",
+        status: "new",
+        title: "New Order",
+        time: "11:15",
+        customer: "Patricia N.",
+        description: "Pet photography session",
+        service: "Pet Photography",
+        location: "Dog Park Studio",
+        bookingId: "#BK020",
+      },
+      // Additional events with same time slots to demonstrate +N indicators
+      {
+        id: 21,
+        date: "2025-03-07",
+        status: "in-progress",
+        title: "In Progress",
+        time: "8:00",
+        customer: "Jennifer L.",
+        description: "Second session of the day",
+        service: "Portrait Photography",
+        location: "Studio C - Central",
+        bookingId: "#BK021",
+      },
+      {
+        id: 22,
+        date: "2025-03-15",
+        status: "new",
+        title: "New Order",
+        time: "14:00",
+        customer: "Michael K.",
+        description: "Business portrait session",
+        service: "Corporate Photography",
+        location: "Executive Office Suite",
+        bookingId: "#BK022",
+      },
+      {
+        id: 23,
+        date: "2025-03-15",
+        status: "complete",
+        title: "Complete",
+        time: "14:00",
+        customer: "Amanda R.",
+        description: "Completed headshot session",
+        service: "Headshot Photography",
+        location: "Professional Studio B",
+        bookingId: "#BK023",
+      },
+      {
+        id: 24,
+        date: "2025-03-15",
+        status: "rejected",
+        title: "Reject",
+        time: "14:00",
+        customer: "Brian T.",
+        description: "Client scheduling conflict",
+        service: "Event Photography",
+        location: "Community Hall",
+        bookingId: "#BK024",
+      },
+      {
+        id: 25,
+        date: "2025-03-20",
+        status: "new",
+        title: "New Order",
+        time: "10:30",
+        customer: "Diana H.",
+        description: "Fashion shoot consultation",
+        service: "Fashion Photography",
+        location: "Fashion District Studio",
+        bookingId: "#BK025",
+      },
+      {
+        id: 26,
+        date: "2025-03-20",
+        status: "in-progress",
+        title: "In Progress",
+        time: "10:30",
+        customer: "Gregory M.",
+        description: "Product catalog editing",
+        service: "Product Photography",
+        location: "Commercial Studio East",
+        bookingId: "#BK026",
+      }
     ],
     []
   );
@@ -411,30 +720,42 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
                   <div className="col-span-9 xs:col-span-10 sm:col-span-11 flex items-center">
                     {hourEvents.length > 0 ? (
                       <div className="w-full space-y-0.5 xs:space-y-1">
-                        {hourEvents.map((event) => (
-                          <div
-                            key={event.id}
-                            className={`px-2 xs:px-3 py-1 xs:py-2 rounded-lg text-xs font-medium cursor-pointer transition-all hover:shadow-sm ${getBadgeStyle(
-                              event.status
-                            )}`}
-                            onClick={() => handleEventClick(event)}
-                            onMouseEnter={(e) => handleEventHover(event, e)}
-                            onMouseLeave={handleEventLeave}
-                          >
-                            <div className="flex items-center justify-between">
-                              <span className="truncate">{event.title}</span>
-                              <span className="ml-1 xs:ml-2 text-xs opacity-75">
-                                {event.time}
+                        {/* Show first event */}
+                        <div
+                          key={hourEvents[0].id}
+                          className={`px-2 xs:px-3 py-1 xs:py-2 rounded-lg text-xs font-medium cursor-pointer transition-all hover:shadow-sm ${getBadgeStyle(
+                            hourEvents[0].status
+                          )}`}
+                          onClick={() => handleEventClick(hourEvents[0])}
+                          onMouseEnter={(e) => handleEventHover(hourEvents[0], e)}
+                          onMouseLeave={handleEventLeave}
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="truncate">{hourEvents[0].title}</span>
+                            <div className="flex items-center gap-1">
+                              <span className="text-xs opacity-75">
+                                {hourEvents[0].time}
                               </span>
-                            </div>
-                            {event.customer &&
-                              !state.viewport.isSmallMobile && (
-                                <div className="text-xs opacity-80 mt-1">
-                                  {event.customer}
-                                </div>
+                              {/* Show additional booking indicator */}
+                              {hourEvents.length > 1 && (
+                                <span className="ml-1 px-1.5 py-0.5 bg-gray-600 text-white text-xs rounded-full font-medium">
+                                  +{hourEvents.length - 1}
+                                </span>
                               )}
+                            </div>
                           </div>
-                        ))}
+                          {hourEvents[0].customer &&
+                            !state.viewport.isSmallMobile && (
+                              <div className="text-xs opacity-80 mt-1">
+                                {hourEvents[0].customer}
+                                {hourEvents.length > 1 && (
+                                  <span className="ml-2 text-xs opacity-60">
+                                    & {hourEvents.length - 1} more
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                        </div>
                       </div>
                     ) : (
                       <div className="w-full h-full flex items-center">
@@ -527,7 +848,7 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
                   </div>
                   <div className="space-y-0.5 sm:space-y-1">
                     {cell.dayEvents
-                      .slice(0, state.viewport.isMobile ? 1 : 3)
+                      .slice(0, state.viewport.isMobile ? 1 : 2)
                       .map((event, i) => (
                         <div
                           key={i}
@@ -542,23 +863,22 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
                             <span className="truncate text-xs">
                               {event.title}
                             </span>
-                            {event.time && (
-                              <span className="ml-1 text-xs hidden sm:inline">
-                                {event.time}
-                              </span>
-                            )}
+                            <div className="flex items-center gap-1">
+                              {event.time && (
+                                <span className="text-xs hidden sm:inline">
+                                  {event.time}
+                                </span>
+                              )}
+                              {/* Show +N indicator for multiple bookings on the first event */}
+                              {i === 0 && cell.dayEvents.length > (state.viewport.isMobile ? 1 : 2) && (
+                                <span className="px-1 py-0.5 bg-gray-600 text-white text-xs rounded-full font-medium">
+                                  +{cell.dayEvents.length - (state.viewport.isMobile ? 1 : 2)}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                       ))}
-                    {cell.dayEvents.length >
-                      (state.viewport.isMobile ? 1 : 3) && (
-                      <div className="text-xs text-gray-500 px-1 xs:px-2">
-                        +
-                        {cell.dayEvents.length -
-                          (state.viewport.isMobile ? 1 : 3)}{" "}
-                        more
-                      </div>
-                    )}
                   </div>
                 </>
               )}

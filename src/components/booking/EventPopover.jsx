@@ -4,25 +4,39 @@ import { Clock, User, Calendar, Edit, Trash2 } from 'lucide-react';
 const EventPopover = ({ event, position }) => {
   if (!event) return null;
 
-  const getStatusColor = (status) => {
+const getStatusColor = (status) => {
     const colors = {
-      'New Order': 'bg-pink-100 text-pink-600',
-      'Complete': 'bg-green-100 text-green-600',
-      'In Progress': 'bg-yellow-100 text-yellow-600',
-      'Reject': 'bg-red-100 text-red-600'
+      'New Order': 'bg-pink-100 text-pink-600 border border-pink-200',
+      'Complete': 'bg-green-100 text-green-600 border border-green-200',
+      'In Progress': 'bg-yellow-100 text-yellow-600 border border-yellow-200',
+      'Reject': 'bg-red-100 text-red-600 border border-red-200',
+      'new': 'bg-pink-100 text-pink-600 border border-pink-200',
+      'complete': 'bg-green-100 text-green-600 border border-green-200',
+      'in-progress': 'bg-yellow-100 text-yellow-600 border border-yellow-200',
+      'rejected': 'bg-red-100 text-red-600 border border-red-200'
     };
-    return colors[status] || 'bg-gray-100 text-gray-600';
+    return colors[status] || 'bg-gray-100 text-gray-600 border border-gray-200';
   };
 
-  // Sample extended data for popover
+  const getInitials = (name) => {
+    if (!name) return 'PH';
+    const words = name.split(' ');
+    if (words.length >= 2) {
+      return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  };
+
+  // Use actual event data for popover
   const eventData = {
-    id: event.id || '#TRK001',
-    title: 'DJ ABZ WINE',
-    type: 'Concert',
+    id: event.bookingId || event.id || '#TRK001',
+    title: event.service || event.title || 'Photography Session',
+    type: event.service || 'Photography',
     time: event.time || '9:30 AM',
-    location: 'MRK Complex Location',
-    customer: event.customer || 'John Smith',
-    status: event.status || 'Complete'
+    location: event.location || 'Studio Location',
+    customer: event.customer || 'Customer Name',
+    status: event.title || event.status || 'Complete',
+    description: event.description || 'Photography session'
   };
 
   return (
@@ -44,8 +58,8 @@ const EventPopover = ({ event, position }) => {
           {/* Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-red-400 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-bold">DJ</span>
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">{getInitials(eventData.customer)}</span>
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 text-sm">{eventData.title}</h3>
@@ -70,7 +84,7 @@ const EventPopover = ({ event, position }) => {
               <Clock className="w-4 h-4" />
               <span>{eventData.time}</span>
               <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-              <span>{eventData.location}</span>
+              <span className="truncate">{eventData.location}</span>
             </div>
             
             <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -82,6 +96,12 @@ const EventPopover = ({ event, position }) => {
               <Calendar className="w-4 h-4" />
               <span>Booking ID: {eventData.id}</span>
             </div>
+            
+            {eventData.description && (
+              <div className="pt-2 border-t border-gray-100">
+                <p className="text-xs text-gray-500 leading-relaxed">{eventData.description}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

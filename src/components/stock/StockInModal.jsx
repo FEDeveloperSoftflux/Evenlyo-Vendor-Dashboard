@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import Button from '../ui/Button';
+import SuccessModal from '../modals/SuccessModal';
 
 const StockInModal = ({ item, isOpen, onClose, onConfirm }) => {
   const [quantity, setQuantity] = useState('');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -41,7 +43,15 @@ const StockInModal = ({ item, isOpen, onClose, onConfirm }) => {
     e.preventDefault();
     if (quantity && parseInt(quantity) > 0) {
       onConfirm(quantity);
+      // Close main modal and show success modal
+      onClose();
+      setShowSuccessModal(true);
     }
+  };
+
+  const handleSuccessModalClose = () => {
+    setShowSuccessModal(false);
+    setQuantity('');
   };
 
   const handleOverlayClick = (e) => {
@@ -51,13 +61,14 @@ const StockInModal = ({ item, isOpen, onClose, onConfirm }) => {
   };
 
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm"
-      onClick={handleOverlayClick}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
+    <>
+      <div 
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm"
+        onClick={handleOverlayClick}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
       <div className="bg-white rounded-2xl shadow-card max-w-lg w-full mx-auto transform transition-all duration-200 scale-100">
         {/* Modal Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
@@ -132,8 +143,27 @@ const StockInModal = ({ item, isOpen, onClose, onConfirm }) => {
             </div>
           </form>
         </div>
+        </div>
       </div>
-    </div>
+      
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleSuccessModalClose}
+        type="stock"
+        data={{
+          itemName: item?.name || "Entertainment & Attractions",
+          quantity: quantity,
+          totalStock: item?.inStockQuantity ? (parseInt(item.inStockQuantity) + parseInt(quantity || 0)).toString() : quantity
+        }}
+        showSecondaryAction={true}
+        secondaryActionText="View Inventory"
+        onSecondaryAction={() => {
+          handleSuccessModalClose();
+          console.log('Navigate to inventory page');
+        }}
+      />
+    </>
   );
 };
 
