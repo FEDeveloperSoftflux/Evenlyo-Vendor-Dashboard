@@ -185,35 +185,60 @@ const TrackingTableRow = ({
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setShowStatusDropdown(!showStatusDropdown)}
-              className="flex items-center justify-between w-full min-w-[100px] text-left md:min-w-[120px] status-dropdown"
+              className="flex items-center justify-between w-full min-w-[100px] text-left md:min-w-[120px] status-dropdown group touch-manipulation active:scale-95 transition-transform duration-150"
+              aria-haspopup="true"
+              aria-expanded={showStatusDropdown}
+              aria-label={`Change status from ${order.status}`}
             >
               <StatusBadge
                 status={order.status.toLowerCase()}
                 onClick={order.status.toLowerCase() === 'pickedup' ? handlePickedUpClick : undefined}
               >
-                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                <ChevronDown
-                  className="w-3 h-3 ml-1"
-                  color={
-                    statusIconColors[order.status.toLowerCase()] || "#374151"
-                  }
-                />
+                <div className="flex items-center gap-1">
+                  <span>{order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
+                  <ChevronDown
+                    className={`w-3 h-3 transition-transform duration-200 ${
+                      showStatusDropdown ? 'rotate-180' : ''
+                    }`}
+                    color={
+                      statusIconColors[order.status.toLowerCase()] || "#374151"
+                    }
+                  />
+                </div>
               </StatusBadge>
             </button>
 
             {showStatusDropdown && (
-              <div className="absolute top-full left-0 mt-1 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50 status-dropdown-menu">
-                {statusOptions.map((status) => (
-                  <button
-                    key={status}
-                    onClick={() => handleStatusChange(status)}
-                    className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg text-gray-700"
-                  >
-                    {status.charAt(0).toUpperCase() +
-                      status.slice(1).replace(/\s+/g, " ")}
-                  </button>
-                ))}
-              </div>
+              <>
+                {/* Mobile backdrop */}
+                <div className="fixed inset-0 z-40 bg-black/10 md:hidden" onClick={() => setShowStatusDropdown(false)} />
+                
+                {/* Dropdown menu */}
+                <div className="absolute top-full left-0 mt-2 min-w-[160px] w-max max-w-[200px] bg-white border border-gray-200 rounded-xl shadow-xl z-50 status-dropdown-menu">
+                  <div className="py-1 flex flex-col">
+                    {statusOptions.map((status, index) => (
+                      <button
+                        key={status}
+                        onClick={() => handleStatusChange(status)}
+                        className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-all duration-200 hover:bg-gray-50 active:bg-gray-100 flex items-center justify-between whitespace-nowrap ${
+                          order.status.toLowerCase() === status.toLowerCase()
+                            ? 'text-pink-600 bg-pink-50 hover:bg-pink-100'
+                            : 'text-gray-700 hover:text-gray-900'
+                        }`}
+                        style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
+                      >
+                        <span className="flex-grow text-left">
+                          {status.charAt(0).toUpperCase() +
+                            status.slice(1).replace(/\s+/g, " ")}
+                        </span>
+                        {order.status.toLowerCase() === status.toLowerCase() && (
+                          <div className="w-2 h-2 bg-pink-500 rounded-full ml-2 flex-shrink-0" />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </td>

@@ -162,12 +162,14 @@ const TrackingTable = ({ data, onStatusChange }) => {
                   </div>
                 </td>
                 <td className="px-2 py-3 text-sm">
-                  <StatusBadge 
-                    status={order.status.toLowerCase()}
-                    onClick={order.status.toLowerCase() === 'pickedup' ? () => handlePickedUpClick(order) : undefined}
-                  >
-                    {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                  </StatusBadge>
+                  <div className="flex items-center">
+                    <StatusBadge 
+                      status={order.status.toLowerCase()}
+                      onClick={order.status.toLowerCase() === 'pickedup' ? () => handlePickedUpClick(order) : undefined}
+                    >
+                      {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    </StatusBadge>
+                  </div>
                 </td>
                 <td className="px-2 py-3 text-sm font-medium">
                   <div className="flex items-center space-x-1 action-buttons">
@@ -198,19 +200,21 @@ const TrackingTable = ({ data, onStatusChange }) => {
         {data.map((order, index) => (
           <div
             key={`${order.id}-${index}`}
-            className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm"
+            className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm mobile-card"
           >
             <div className="flex justify-between items-start mb-3">
               <div>
                 <h3 className="font-semibold text-black">{order.id}</h3>
                 <p className="text-sm text-black">{order.dateTime}</p>
               </div>
-              <StatusBadge 
-                status={order.status.toLowerCase()}
-                onClick={order.status.toLowerCase() === 'pickedup' ? () => handlePickedUpClick(order) : undefined}
-              >
-                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-              </StatusBadge>
+              <div className="flex items-center space-x-2">
+                <StatusBadge 
+                  status={order.status.toLowerCase()}
+                  onClick={order.status.toLowerCase() === 'pickedup' ? () => handlePickedUpClick(order) : undefined}
+                >
+                  {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                </StatusBadge>
+              </div>
             </div>
             <div className="space-y-2 text-sm">
               <div>
