@@ -171,6 +171,29 @@ const Tracking = ({ onNavigate }) => {
       destination: "147 Maple Ave, North Side",
       status: "claim",
     },
+    {
+      id: "TRK007",
+      dateTime: "2024-06-22 15:30",
+      buyer: {
+        avatar: userPhoto,
+        name: "David Wilson",
+        id: "USR007",
+        email: "david@example.com",
+        phone: "1234567800",
+        location: "258 Event Plaza, Downtown",
+      },
+      seller: {
+        avatar: userPhoto,
+        name: "Event Equipment Co",
+        location: "New York, NY",
+        email: "events@example.com",
+        phone: "1234567801",
+      },
+      items: ["DJ Console", "Speaker Set", "Stage Lights"],
+      deliveryDate: "2024-07-03",
+      destination: "258 Event Plaza, Downtown",
+      status: "pickedup",
+    },
   ];
 
   const filteredData = trackingData.filter((item) => {

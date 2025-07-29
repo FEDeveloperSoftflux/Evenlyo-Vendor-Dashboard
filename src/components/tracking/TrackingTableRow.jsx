@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Download, Eye, Mail, ChevronDown } from "lucide-react";
 import TrackingPopover from "./TrackingPopover";
 import Badge from "../ui/Badge";
+import StatusBadge from "./StatusBadge";
+import PickedUpModal from "./PickedUpModal";
 import StatusChangeConfirmationModal from "../modals/StatusChangeConfirmationModal";
 
 const TrackingTableRow = ({
@@ -16,12 +18,14 @@ const TrackingTableRow = ({
   const [showStatusDropdown, setShowStatusDropdown] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [pendingStatusChange, setPendingStatusChange] = useState(null);
+  const [showPickedUpModal, setShowPickedUpModal] = useState(false);
   const dropdownRef = useRef(null);
 
   const statusOptions = [
     "delivered",
     "on the way",
     "received back",
+    "pickedup",
     "complete",
     "rejected",
     "claim",
@@ -31,6 +35,7 @@ const TrackingTableRow = ({
     delivered: "#FFB310",
     "on the way": "#FF0092",
     "received back": "#A05807",
+    pickedup: "#3B82F6",
     complete: "#04C373",
     rejected: "#FF0000",
     claim: "#E31B95",
@@ -39,6 +44,13 @@ const TrackingTableRow = ({
   const handleStatusChange = (newStatus) => {
     if (newStatus === order.status) {
       setShowStatusDropdown(false);
+      return;
+    }
+
+    // For PickedUp status, open modal directly instead of confirmation
+    if (newStatus === 'pickedup') {
+      setShowStatusDropdown(false);
+      setShowPickedUpModal(true);
       return;
     }
 
@@ -57,6 +69,20 @@ const TrackingTableRow = ({
   const handleCancelStatusChange = () => {
     setPendingStatusChange(null);
     setShowConfirmationModal(false);
+  };
+
+  const handlePickedUpClick = () => {
+    setShowPickedUpModal(true);
+  };
+
+  const handlePickedUpModalClose = () => {
+    setShowPickedUpModal(false);
+  };
+
+  const handlePickedUpStatusUpdate = (newStatus) => {
+    if (onStatusChange) {
+      onStatusChange(order.id, newStatus);
+    }
   };
 
   const formatTime = (dateTime) => {
@@ -161,11 +187,9 @@ const TrackingTableRow = ({
               onClick={() => setShowStatusDropdown(!showStatusDropdown)}
               className="flex items-center justify-between w-full min-w-[120px] text-left"
             >
-              <Badge
+              <StatusBadge
                 status={order.status.toLowerCase()}
-                color={
-                  statusIconColors[order.status.toLowerCase()] || "#374151"
-                }
+                onClick={order.status.toLowerCase() === 'pickedup' ? handlePickedUpClick : undefined}
               >
                 {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                 <ChevronDown
@@ -174,7 +198,7 @@ const TrackingTableRow = ({
                     statusIconColors[order.status.toLowerCase()] || "#374151"
                   }
                 />
-              </Badge>
+              </StatusBadge>
             </button>
 
             {showStatusDropdown && (
@@ -235,6 +259,20 @@ const TrackingTableRow = ({
           currentStatus={order.status}
           newStatus={pendingStatusChange}
           orderInfo={order}
+        />
+      )}
+
+      {/* PickedUp Modal */}
+      {showPickedUpModal && (
+        <PickedUpModal
+          isOpen={showPickedUpModal}
+          onClose={handlePickedUpModalClose}
+          onStatusUpdate={handlePickedUpStatusUpdate}
+          items={[
+            { id: 1, name: "DJ Set" },
+            { id: 2, name: "Speakers" },
+            { id: 3, name: "Lighting Rig" },
+          ]}
         />
       )}
     </>

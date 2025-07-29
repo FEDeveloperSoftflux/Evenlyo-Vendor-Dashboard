@@ -117,6 +117,17 @@ const SuccessModal = ({
           message: "Your account settings have been updated.",
           details: null
         };
+      case 'pickup':
+        return {
+          title: "Pickup Completed Successfully!",
+          message: "Items have been rated and security fees claimed. Status updated to 'Complete'.",
+          details: data && [
+            { label: "Booking ID", value: data.id },
+            { label: "Client", value: data.client },
+            { label: "Items Rated", value: data.itemCount },
+            { label: "New Status", value: "Complete" }
+          ]
+        };
       default:
         return { title, message, details: null };
     }

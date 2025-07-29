@@ -3,10 +3,14 @@ import { Download, Eye, Mail } from "lucide-react";
 import TrackOrderModal from "./TrackOrderModal";
 import TrackingTableRow from "./TrackingTableRow";
 import Badge from "../ui/Badge";
+import StatusBadge from "./StatusBadge";
+import PickedUpModal from "./PickedUpModal";
 
 const TrackingTable = ({ data, onStatusChange }) => {
   const [popoverInfo, setPopoverInfo] = useState(null);
   const [modalOrder, setModalOrder] = useState(null);
+  const [showPickedUpModal, setShowPickedUpModal] = useState(false);
+  const [pickedUpOrder, setPickedUpOrder] = useState(null);
 
   const handleMouseEnter = (type, index) => {
     setPopoverInfo({ type, index });
@@ -30,6 +34,22 @@ const TrackingTable = ({ data, onStatusChange }) => {
 
   const closeModal = () => {
     setModalOrder(null);
+  };
+
+  const handlePickedUpClick = (order) => {
+    setPickedUpOrder(order);
+    setShowPickedUpModal(true);
+  };
+
+  const handlePickedUpModalClose = () => {
+    setShowPickedUpModal(false);
+    setPickedUpOrder(null);
+  };
+
+  const handlePickedUpStatusUpdate = (newStatus) => {
+    if (onStatusChange && pickedUpOrder) {
+      onStatusChange(pickedUpOrder.id, newStatus);
+    }
   };
 
   return (
@@ -94,9 +114,12 @@ const TrackingTable = ({ data, onStatusChange }) => {
                 <h3 className="font-semibold text-black">{order.id}</h3>
                 <p className="text-sm text-black">{order.dateTime}</p>
               </div>
-              <Badge status={order.status.toLowerCase()}>
+              <StatusBadge 
+                status={order.status.toLowerCase()}
+                onClick={order.status.toLowerCase() === 'pickedup' ? () => handlePickedUpClick(order) : undefined}
+              >
                 {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-              </Badge>
+              </StatusBadge>
             </div>
             <div className="space-y-2 text-sm">
               <div>
@@ -166,6 +189,20 @@ const TrackingTable = ({ data, onStatusChange }) => {
           isOpen={!!modalOrder}
           onClose={closeModal}
           orderData={modalOrder}
+        />
+      )}
+      
+      {/* PickedUp Modal */}
+      {showPickedUpModal && pickedUpOrder && (
+        <PickedUpModal
+          isOpen={showPickedUpModal}
+          onClose={handlePickedUpModalClose}
+          onStatusUpdate={handlePickedUpStatusUpdate}
+          items={[
+            { id: 1, name: "DJ Console" },
+            { id: 2, name: "Speaker Set" },
+            { id: 3, name: "Stage Lights" },
+          ]}
         />
       )}
     </div>

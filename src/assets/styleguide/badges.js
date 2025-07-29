@@ -15,6 +15,7 @@ export const badgeStyles = {
   "received back": "bg-yellow-100  text-[#A05807]",
   claim: "bg-pink-100 text-[#E31B95]",
   complete: "bg-[#04C3731A] text-green-600",
+  pickedup: "bg-blue-100 text-blue-600",
   // Role management statuses
   active: "bg-green-100 text-green-600",
   "de-active": "bg-red-100 text-red-600",
