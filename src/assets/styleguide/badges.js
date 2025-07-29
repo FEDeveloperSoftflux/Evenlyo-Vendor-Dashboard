@@ -10,10 +10,10 @@ export const badgeStyles = {
   live: "bg-green-100 text-green-600",
   block: "bg-red-100 text-red-600",
   // Tracking-specific statuses
-  delivered: "bg-[#FFB3101A] text-[#FFB310]", // Use Tailwind yellow for golden
-  "on the way": "bg-pink-100  text-[#FF0092]", // Pink color
-  "received back": "bg-yellow-100  text-[#A05807]", // Lighter yellow
-  claim: "bg-pink-100 text-[#E31B95]", // Use primary color for claim
+  delivered: "bg-[#FFB3101A] text-[#FFB310]",
+  "on the way": "bg-pink-100  text-[#FF0092]",
+  "received back": "bg-yellow-100  text-[#A05807]",
+  claim: "bg-pink-100 text-[#E31B95]",
   complete: "bg-[#04C3731A] text-green-600",
   // Role management statuses
   active: "bg-green-100 text-green-600",
