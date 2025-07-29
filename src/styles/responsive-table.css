@@ -1,0 +1,131 @@
+/* Responsive Table Optimizations */
+
+/* For very large desktop screens (1920px+) */
+@media (min-width: 1920px) {
+  .tracking-table {
+    font-size: 0.95rem;
+  }
+  
+  .tracking-table th,
+  .tracking-table td {
+    padding: 1rem 1.25rem;
+  }
+}
+
+/* For standard desktop screens (1200px - 1919px) */
+@media (min-width: 1200px) and (max-width: 1919px) {
+  .tracking-table {
+    font-size: 0.9rem;
+  }
+  
+  .tracking-table th,
+  .tracking-table td {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* For laptop screens (1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .tracking-table {
+    font-size: 0.85rem;
+  }
+  
+  .tracking-table th,
+  .tracking-table td {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .tracking-table .avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .tracking-table .status-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* For medium laptop screens (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tracking-table {
+    font-size: 0.8rem;
+  }
+  
+  .tracking-table th,
+  .tracking-table td {
+    padding: 0.5rem;
+  }
+  
+  .tracking-table .text-truncate {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .tracking-table .avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+/* Table container scroll improvements */
+.table-container {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e0 #f7fafc;
+}
+
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f7fafc;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Ensure table cells don't break */
+.tracking-table td {
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.tracking-table .truncate-cell {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Status dropdown responsive adjustments */
+@media (max-width: 1199px) {
+  .status-dropdown {
+    min-width: 100px !important;
+  }
+  
+  .status-dropdown-menu {
+    min-width: 120px;
+  }
+}
+
+/* Action buttons spacing for smaller screens */
+@media (max-width: 1023px) {
+  .action-buttons {
+    gap: 0.25rem;
+  }
+  
+  .action-buttons button {
+    padding: 0.25rem;
+  }
+}

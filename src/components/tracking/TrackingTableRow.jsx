@@ -113,7 +113,7 @@ const TrackingTableRow = ({
   return (
     <>
       <tr className="hover:bg-gray-50">
-        <td className="px-2 sm:px-4 py-3 text-sm text-black w-[12%]">
+        <td className="px-2 md:px-3 py-3 text-sm text-black w-[12%] md:w-[10%]">
           <button
             onClick={() => onOrderClick(order)}
             className="text-indigo-600 hover:text-indigo-900 font-medium truncate block max-w-full"
@@ -121,11 +121,11 @@ const TrackingTableRow = ({
             {order.id}
           </button>
         </td>
-        <td className="px-2 sm:px-4 py-3 text-sm text-black w-[15%]">
+        <td className="px-2 md:px-3 py-3 text-sm text-black w-[15%] md:w-[12%]">
           <div className="truncate">{order.dateTime}</div>
         </td>
         <td
-          className="px-2 sm:px-4 py-3 text-sm relative w-[18%]"
+          className="px-2 md:px-3 py-3 text-sm relative w-[20%] md:w-[18%]"
           onMouseEnter={() => onMouseEnter("buyer", index)}
           onMouseLeave={onMouseLeave}
         >
@@ -133,7 +133,7 @@ const TrackingTableRow = ({
             <img
               src={order.buyer.avatar}
               alt={order.buyer.name}
-              className="w-8 h-8 rounded-full object-cover mr-2 flex-shrink-0"
+              className="w-8 h-8 rounded-full object-cover mr-2 flex-shrink-0 avatar"
             />
             <div className="min-w-0 flex-1">
               <div className="text-sm font-medium text-black truncate">
@@ -155,18 +155,18 @@ const TrackingTableRow = ({
               />
             )}
         </td>
-        <td className="px-2 sm:px-4 py-3 text-sm w-[15%]">
-          <div className="text-black truncate" title={order.items.join(", ")}>
+        <td className="px-2 md:px-3 py-3 text-sm w-[16%] md:w-[15%]">
+          <div className="text-black truncate truncate-cell" title={order.items.join(", ")}>
             {order.items.join(", ")}
           </div>
           <div className="text-xs text-gray-500 mt-1">
             {formatTime(order.dateTime)}
           </div>
         </td>
-        <td className="px-2 sm:px-4 py-3 text-sm text-black w-[12%]">
+        <td className="px-2 md:px-3 py-3 text-sm text-black w-[12%] md:w-[10%]">
           <div className="truncate">{order.deliveryDate}</div>
         </td>
-        <td className="px-2 sm:px-4 py-3 text-sm w-[13%]">
+        <td className="px-2 md:px-3 py-3 text-sm w-[15%] md:w-[13%]">
           <div
             className="text-black truncate leading-tight"
             title={order.destination}
@@ -181,11 +181,11 @@ const TrackingTableRow = ({
             ))}
           </div>
         </td>
-        <td className="px-2 sm:px-4 py-3 text-sm w-[10%] relative">
+        <td className="px-2 md:px-3 py-3 text-sm w-[12%] md:w-[10%] relative">
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setShowStatusDropdown(!showStatusDropdown)}
-              className="flex items-center justify-between w-full min-w-[120px] text-left"
+              className="flex items-center justify-between w-full min-w-[100px] text-left md:min-w-[120px] status-dropdown"
             >
               <StatusBadge
                 status={order.status.toLowerCase()}
@@ -202,7 +202,7 @@ const TrackingTableRow = ({
             </button>
 
             {showStatusDropdown && (
-              <div className="absolute top-full left-0 mt-1 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+              <div className="absolute top-full left-0 mt-1 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50 status-dropdown-menu">
                 {statusOptions.map((status) => (
                   <button
                     key={status}
@@ -217,8 +217,8 @@ const TrackingTableRow = ({
             )}
           </div>
         </td>
-        <td className="px-2 sm:px-4 py-3 text-sm font-medium w-[7%]">
-          <div className="flex items-center space-x-1">
+        <td className="px-2 md:px-3 py-3 text-sm font-medium w-[8%] md:w-[7%]">
+          <div className="flex items-center space-x-1 action-buttons">
             <button
               onClick={() => {
                 // Handle download functionality

@@ -5,6 +5,7 @@ import TrackingTableRow from "./TrackingTableRow";
 import Badge from "../ui/Badge";
 import StatusBadge from "./StatusBadge";
 import PickedUpModal from "./PickedUpModal";
+import "../../styles/responsive-table.css";
 
 const TrackingTable = ({ data, onStatusChange }) => {
   const [popoverInfo, setPopoverInfo] = useState(null);
@@ -55,32 +56,32 @@ const TrackingTable = ({ data, onStatusChange }) => {
   return (
     <div className="w-full">
       {/* Desktop/Tablet Table View */}
-      <div className="hidden md:block">
-        <table className="w-full divide-y divide-gray-200 shadow-sm rounded-lg bg-white border border-gray-200">
+      <div className="hidden lg:block overflow-x-auto table-container">
+        <table className="tracking-table w-full min-w-[900px] divide-y divide-gray-200 shadow-sm rounded-lg bg-white border border-gray-200">
           <thead className="bg-pink-50 border-b border-pink-100">
             <tr>
-              <th className="px-3 sm:px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-2 md:px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Tracking ID
               </th>
-              <th className="px-3 sm:px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-2 md:px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Date & Time
               </th>
-              <th className="px-3 sm:px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-2 md:px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Buyer Details
               </th>
-              <th className="px-3 sm:px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-2 md:px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Item List
               </th>
-              <th className="px-3 sm:px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-2 md:px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Delivery
               </th>
-              <th className="px-3 sm:px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-2 md:px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Location
               </th>
-              <th className="px-3 sm:px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-2 md:px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-3 sm:px-4 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-2 md:px-3 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Actions
               </th>
             </tr>
@@ -97,6 +98,96 @@ const TrackingTable = ({ data, onStatusChange }) => {
                 popoverInfo={popoverInfo}
                 onStatusChange={onStatusChange}
               />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Medium screen table for laptops */}
+      <div className="hidden md:block lg:hidden overflow-x-auto table-container">
+        <table className="tracking-table w-full min-w-[800px] divide-y divide-gray-200 shadow-sm rounded-lg bg-white border border-gray-200">
+          <thead className="bg-pink-50 border-b border-pink-100">
+            <tr>
+              <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                ID
+              </th>
+              <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Date
+              </th>
+              <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Buyer
+              </th>
+              <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Items
+              </th>
+              <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Status
+              </th>
+              <th className="px-2 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {data.map((order, index) => (
+              <tr key={`${order.id}-${index}`} className="hover:bg-gray-50">
+                <td className="px-2 py-3 text-sm text-black">
+                  <button
+                    onClick={() => handleOrderClick(order)}
+                    className="text-indigo-600 hover:text-indigo-900 font-medium truncate block max-w-full"
+                  >
+                    {order.id}
+                  </button>
+                </td>
+                <td className="px-2 py-3 text-sm text-black">
+                  <div className="truncate text-xs">{order.dateTime}</div>
+                </td>
+                <td className="px-2 py-3 text-sm">
+                  <div className="flex items-center min-w-0">
+                    <img
+                      src={order.buyer.avatar}
+                      alt={order.buyer.name}
+                      className="w-6 h-6 rounded-full object-cover mr-2 flex-shrink-0 avatar"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-medium text-black truncate">
+                        {order.buyer.name}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-2 py-3 text-sm">
+                  <div className="text-black truncate text-xs truncate-cell" title={order.items.join(", ")}>
+                    {order.items.join(", ")}
+                  </div>
+                </td>
+                <td className="px-2 py-3 text-sm">
+                  <StatusBadge 
+                    status={order.status.toLowerCase()}
+                    onClick={order.status.toLowerCase() === 'pickedup' ? () => handlePickedUpClick(order) : undefined}
+                  >
+                    {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                  </StatusBadge>
+                </td>
+                <td className="px-2 py-3 text-sm font-medium">
+                  <div className="flex items-center space-x-1 action-buttons">
+                    <button
+                      onClick={() => handleOrderClick(order)}
+                      className="text-gray-600 hover:text-gray-900 transition-colors p-1"
+                      title="View Details"
+                    >
+                      <Eye className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => console.log("Download invoice for:", order.id)}
+                      className="text-gray-600 hover:text-gray-900 transition-colors p-1"
+                      title="Download Invoice"
+                    >
+                      <Download className="w-4 h-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
             ))}
           </tbody>
         </table>
