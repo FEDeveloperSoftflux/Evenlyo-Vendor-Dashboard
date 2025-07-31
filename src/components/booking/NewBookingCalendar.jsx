@@ -363,7 +363,7 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
         location: "Garden Wedding Venue",
         bookingId: "#BK008",
       },
-{
+      {
         id: 9,
         date: "2025-03-25",
         status: "complete",
@@ -676,16 +676,16 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
           <h2 className="text-sm xs:text-base sm:text-lg md:text-xl font-bold text-gray-900 text-center px-2">
             {state.viewport.isMobile
               ? state.currentDate.toLocaleDateString("en-US", {
-                  weekday: "short",
-                  month: "short",
-                  day: "numeric",
-                })
+                weekday: "short",
+                month: "short",
+                day: "numeric",
+              })
               : state.currentDate.toLocaleDateString("en-US", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
           </h2>
           <button
             onClick={() => navigateDay(1)}
@@ -808,8 +808,8 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
                 {state.viewport.isSmallMobile
                   ? day.substring(0, 1)
                   : state.viewport.isMobile
-                  ? day.substring(0, 3)
-                  : day}
+                    ? day.substring(0, 3)
+                    : day}
               </span>
             </div>
           ))}
@@ -820,9 +820,8 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
           {calendarDays.map((cell, index) => (
             <div
               key={index}
-              className={`min-h-[60px] xs:min-h-[80px] sm:min-h-[100px] md:min-h-[120px] p-1 xs:p-2 border-r border-b border-gray-200 last:border-r-0 ${
-                cell ? "bg-white hover:bg-gray-50" : "bg-gray-50"
-              }`}
+              className={`min-h-[60px] xs:min-h-[80px] sm:min-h-[100px] md:min-h-[120px] p-1 xs:p-2 border-r border-b border-gray-200 last:border-r-0 ${cell ? "bg-white hover:bg-gray-50" : "bg-gray-50"
+                }`}
             >
               {cell && (
                 <>
@@ -834,15 +833,25 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
                       <span
                         className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
                           cell.dayEvents[0].status === "new"
-                            ? "bg-pink-500"
+                            ? "bg-blue-500"
                             : cell.dayEvents[0].status === "complete"
-                            ? "bg-green-500"
-                            : cell.dayEvents[0].status === "in-progress"
-                            ? "bg-yellow-500"
-                            : cell.dayEvents[0].status === "rejected"
-                            ? "bg-red-500"
-                            : "bg-gray-500"
-                        }`}
+                              ? "bg-green-800"
+                              : cell.dayEvents[0].status === "in-progress"
+                                ? "bg-green-500"
+                                : cell.dayEvents[0].status === "rejected"
+                                  ? "bg-red-600"
+                                  : cell.dayEvents[0].status === "paid"
+                                    ? "bg-purple-600"
+                                    : cell.dayEvents[0].status === "pickedup" || cell.dayEvents[0].status === "picked up"
+                                      ? "bg-blue-800"
+                                      : cell.dayEvents[0].status === "on the way"
+                                        ? "bg-amber-600"
+                                        : cell.dayEvents[0].status === "received back"
+                                          ? "bg-blue-500"
+                                          : cell.dayEvents[0].status === "claim"
+                                            ? "bg-orange-600"
+                                            : "bg-gray-500"
+                          }`}
                       ></span>
                     )}
                   </div>
@@ -893,6 +902,7 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
       handleEventClick,
       handleEventHover,
       handleEventLeave,
+      weekDays,
     ]
   );
 
@@ -911,12 +921,11 @@ const BookingCalendar = ({ viewBy = "Week" }) => {
           <h2 className="text-sm xs:text-base sm:text-lg md:text-xl font-bold text-gray-900 text-center px-2">
             {state.viewport.isMobile
               ? `${monthNames[state.currentDate.getMonth()].substring(
-                  0,
-                  3
-                )} ${state.currentDate.getFullYear()}`
-              : `${
-                  monthNames[state.currentDate.getMonth()]
-                } ${state.currentDate.getFullYear()}`}
+                0,
+                3
+              )} ${state.currentDate.getFullYear()}`
+              : `${monthNames[state.currentDate.getMonth()]
+              } ${state.currentDate.getFullYear()}`}
           </h2>
           <button
             onClick={() => navigateMonth(1)}

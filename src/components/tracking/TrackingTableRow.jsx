@@ -22,7 +22,6 @@ const TrackingTableRow = ({
   const dropdownRef = useRef(null);
 
   const statusOptions = [
-    "delivered",
     "on the way",
     "received back",
     "pickedup",
@@ -32,13 +31,12 @@ const TrackingTableRow = ({
   ];
 
   const statusIconColors = {
-    delivered: "#FFB310",
-    "on the way": "#FF0092",
-    "received back": "#A05807",
-    pickedup: "#3B82F6",
-    complete: "#04C373",
-    rejected: "#FF0000",
-    claim: "#E31B95",
+    "on the way": "#92400e", // text-amber-800
+    "received back": "#1e40af", // text-blue-800
+    pickedup: "#ffffff", // text-white
+    complete: "#ffffff", // text-white
+    rejected: "#991b1b", // text-red-800
+    claim: "#7c2d12", // text-orange-900
   };
 
   const handleStatusChange = (newStatus) => {

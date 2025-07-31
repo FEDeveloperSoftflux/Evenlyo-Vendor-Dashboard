@@ -34,29 +34,6 @@ const Tracking = ({ onNavigate }) => {
   // Comprehensive sample data for tracking
   const initialTrackingData = [
     {
-      id: "TRK001",
-      dateTime: "2024-06-27 10:00",
-      buyer: {
-        avatar: userPhoto,
-        name: "John Smith",
-        id: "USR001",
-        email: "john@example.com",
-        phone: "1234567890",
-        location: "456 Business Ave, Commerce City",
-      },
-      seller: {
-        avatar: userPhoto,
-        name: "Tech Store",
-        location: "New York, NY",
-        email: "tech@example.com",
-        phone: "1234567890",
-      },
-      items: ["2024-06-27"],
-      deliveryDate: "2024-06-27",
-      destination: "456 Business Ave, Commerce City",
-      status: "delivered",
-    },
-    {
       id: "TRK002",
       dateTime: "2024-06-27 10:00",
       buyer: {
